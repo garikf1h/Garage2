@@ -4,13 +4,13 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class CustomerInfo
+    public class CustomerCard
     {
         private string m_CarOwnerName;
         private string m_PhoneNumber;
         private eRepairStatus m_CarRepairStatus;
 
-        public CustomerInfo(string i_CarOwnerName, string i_PhoneNumber)
+        public CustomerCard(string i_CarOwnerName, string i_PhoneNumber)
         {
             m_CarOwnerName = i_CarOwnerName;
             m_PhoneNumber = i_PhoneNumber;

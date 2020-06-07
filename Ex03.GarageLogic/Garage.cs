@@ -7,16 +7,16 @@ namespace Ex03.GarageLogic
 {
     public class Garage
     {
-        private Dictionary<string, CustomerInfo> m_ContactInfoDictionary;
+        private Dictionary<string, CustomerCard> m_ContactInfoDictionary;
         private Dictionary<string, Vehicle> m_Vehicles;
 
         public Garage()
         {
-            m_ContactInfoDictionary = new Dictionary<string, CustomerInfo>();
+            m_ContactInfoDictionary = new Dictionary<string, CustomerCard>();
             m_Vehicles = new Dictionary<string, Vehicle>();
         }
 
-        public void AddVehicleToGarage(Vehicle i_VehicleToAdd, CustomerInfo i_ContactInfo)
+        public void AddVehicleToGarage(Vehicle i_VehicleToAdd, CustomerCard i_ContactInfo)
         {
             m_Vehicles.Add(i_VehicleToAdd.LicencsePlateNumber, i_VehicleToAdd);
             m_ContactInfoDictionary.Add(i_VehicleToAdd.LicencsePlateNumber, i_ContactInfo);
@@ -29,7 +29,7 @@ namespace Ex03.GarageLogic
 
         public void ChangeStatusOfCar(Vehicle i_VehicleToChangeStatus, eRepairStatus m_NewRepairStatus)
         {
-            CustomerInfo customerToGet;
+            CustomerCard customerToGet;
             if (m_ContactInfoDictionary.TryGetValue(i_VehicleToChangeStatus.LicencsePlateNumber, out customerToGet))
             {
                 customerToGet.CarRepairStatus = m_NewRepairStatus;
@@ -41,9 +41,9 @@ namespace Ex03.GarageLogic
            i_Vehicle.PumpAllWheels();
         }
 
-        public bool FillFuel(FuelVehicle i_FuelVehicle, FuelVehicle.eFuel i_Fuel, float i_HowMuchToFill)
+        public void FillFuel(FuelVehicle i_FuelVehicle, FuelVehicle.eFuel i_Fuel, float i_HowMuchToFill)
         {
-            return i_FuelVehicle.FillFuel(i_Fuel, i_HowMuchToFill);
+            i_FuelVehicle.FillFuel(i_Fuel, i_HowMuchToFill);
         }
 
         public StringBuilder GetVehiclesByLicensePlateNumberAndStatus(eRepairStatus i_RepairStatus)
@@ -60,7 +60,7 @@ namespace Ex03.GarageLogic
                 withoutStatus = false;
             }
 
-            foreach(KeyValuePair<string, CustomerInfo> keyValuePair in m_ContactInfoDictionary)
+            foreach(KeyValuePair<string, CustomerCard> keyValuePair in m_ContactInfoDictionary)
             {
                 if (keyValuePair.Value.CarRepairStatus == i_RepairStatus || withoutStatus)
                 {
@@ -116,7 +116,7 @@ namespace Ex03.GarageLogic
         public StringBuilder GetAllVehicles()
         {
             StringBuilder outputAllVehicles = new StringBuilder();
-            CustomerInfo customerInfo;
+            CustomerCard customerInfo;
             int i = 1;
             foreach (KeyValuePair<string, Vehicle> keyValuePair in m_Vehicles)
             {

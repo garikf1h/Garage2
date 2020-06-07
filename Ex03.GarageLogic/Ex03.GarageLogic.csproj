@@ -37,7 +37,7 @@
   <ItemGroup>
     <Compile Include="Car.cs" />
     <Compile Include="CreateNewObjForGarage.cs" />
-    <Compile Include="CustomerInfo.cs" />
+    <Compile Include="CustomerCard.cs" />
     <Compile Include="ElectricCar.cs" />
     <Compile Include="ElectricMotorcycle.cs" />
     <Compile Include="ElectricVehicle.cs" />

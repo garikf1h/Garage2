@@ -6,7 +6,7 @@ using Ex03.GarageLogic;
 
 namespace Ex03.ConsoleUI
 {
-    public class UI
+    internal class UI
     {
         private Garage m_Garage;
 
@@ -16,7 +16,7 @@ namespace Ex03.ConsoleUI
             RunUI();
         }
 
-        public enum eExitOrCont
+        private enum eExitOrCont
         {
             Exit = -1,
             Continue
@@ -353,7 +353,7 @@ namespace Ex03.ConsoleUI
         private void addVehicleToGarageMenu()
         {
             Vehicle vehicleToAddGarage, vehicleExists;
-            CustomerInfo customerInfo;
+            CustomerCard customerInfo;
             Console.WriteLine("Please enter the license plate number");
             string licensePlateNumber = Console.ReadLine();
             if (!m_Garage.IsVehicleExistsInGarage(licensePlateNumber, out vehicleExists))
@@ -456,14 +456,14 @@ namespace Ex03.ConsoleUI
             return isCorrect;
         }
 
-        private CustomerInfo getCustomerInfo()
+        private CustomerCard getCustomerInfo()
         {
             string inputName, inputPhone;
             Console.WriteLine("Please enter car owner name:");
             inputName = Console.ReadLine();
             Console.WriteLine("Please enter car owner phone number:");
             inputPhone = Console.ReadLine();
-           return new CustomerInfo(inputName, inputPhone);
+           return new CustomerCard(inputName, inputPhone);
         }
 
         private void printMenu()

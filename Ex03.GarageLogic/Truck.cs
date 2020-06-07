@@ -6,7 +6,6 @@ namespace Ex03.GarageLogic
 {
    public class Truck : FuelVehicle
     {
-        private const float k_MaxPressureOfWheel = 28;
         private Car m_Car;
         private bool m_isCarryDangerousMaterial;
         private float m_CarryVolume;

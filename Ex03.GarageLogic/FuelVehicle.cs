@@ -99,16 +99,20 @@ Fuel.ToString(), CurrAmountOfFuel);
            return i_AmountOfFuelToAdd + m_CurrAmountOfFuel <= r_MaxAmountOfFuel && i_AmountOfFuelToAdd >= 0;
         }
 
-        internal bool FillFuel(eFuel i_FuelToFill, float i_HowMuchToFill)
+        internal void FillFuel(eFuel i_FuelToFill, float i_HowMuchToFill)
         {
-            bool isSuccseeded = false;
-            if(i_FuelToFill == r_Fuel && i_HowMuchToFill + m_CurrAmountOfFuel <= r_MaxAmountOfFuel)
+            float maxAmountPossibleToAdd;
+            if (i_FuelToFill != r_Fuel)
             {
-                CurrAmountOfFuel += i_HowMuchToFill;
-                isSuccseeded = true;
+                throw new ArgumentException("The fuel you entered doesn't fit the vehicle fuel type");
             }
 
-            return isSuccseeded;
+            if (!CheckAddFuel(i_HowMuchToFill, out maxAmountPossibleToAdd))
+            {
+                throw new ValueOutOfRangeException(0, maxAmountPossibleToAdd);
+            }
+
+            CurrAmountOfFuel += i_HowMuchToFill;
         }
     }
 }
