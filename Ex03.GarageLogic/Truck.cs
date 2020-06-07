@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class Truck : FuelVehicle
+   public class Truck : FuelVehicle
     {
         private const float k_MaxPressureOfWheel = 28;
         private Car m_Car;
@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             m_Car = new Car();
         }
 
-        public new static List<string> GetQuestions()
+        public static new List<string> GetQuestions()
         {
             List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
             List<string> questionsToUserCar = Car.GetQuestions();
@@ -24,12 +24,13 @@ namespace Ex03.GarageLogic
             {
                 questionsToUserFuelVehicle.Add(str);
             }
+
             questionsToUserFuelVehicle.Add("Please enter true if the truck carry dangerous material, or false if doesn't");
-            questionsToUserFuelVehicle.Add("Please enter the carry volume of the car");
+            questionsToUserFuelVehicle.Add("Please enter the carry volume of the truck");
             return questionsToUserFuelVehicle;
         }
 
-        public new static List<string> GetAtributes()
+       public static new List<string> GetAtributes()
         {
             List<string> atributesFuelVehicle = FuelVehicle.GetAtributes();
             List<string> atributesToUserCar = Car.GetAtributes();
@@ -43,16 +44,12 @@ namespace Ex03.GarageLogic
             return atributesFuelVehicle;
         }
 
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detaliesCar = Car.GetAllDetalies();
-            StringBuilder detaliesFuelCar = base.GetAllDetalies();
-            detaliesFuelCar.AppendLine(detaliesCar.ToString());
-            detaliesFuelCar.AppendLine("Truck carry volume is: " + m_CarryVolume.ToString());
-            detaliesFuelCar.AppendLine(" Is carry dangerous material: " + m_isCarryDangerousMaterial.ToString());
-            return detaliesFuelCar;
+            return "Vehicle type: Truck \n" + base.GetAllDetalies() + m_Car.GetAllDetalies() + string.Format(@"
+Truck carry volume is:{0}
+Is carry dangerous material:{1}", m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
         }
-
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             if(i_WhichAttributeToSet == "CarryVolume")
@@ -62,7 +59,7 @@ namespace Ex03.GarageLogic
 
             if (i_WhichAttributeToSet == "IsCarryDangerousMaterial")
             {
-                IsCarryDangerousMaterial = bool.Parse(i_InputFromUser);
+                m_isCarryDangerousMaterial = bool.Parse(i_InputFromUser);
             }
 
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
@@ -79,32 +76,6 @@ namespace Ex03.GarageLogic
             set
             {
                 m_CarryVolume = value;
-            }
-        }
-
-        public Car Car
-        {
-            get
-            {
-                return m_Car;
-            }
-
-            set
-            {
-                m_Car = value;
-            }
-        }
-
-        public bool IsCarryDangerousMaterial
-        {
-            get
-            {
-                return m_isCarryDangerousMaterial;
-            }
-
-            set
-            {
-                m_isCarryDangerousMaterial = value;
             }
         }
     }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class FuelCar : FuelVehicle
+    public class FuelCar : FuelVehicle
     {
         private Car m_Car;
 
@@ -13,7 +13,7 @@ namespace Ex03.GarageLogic
             m_Car = new Car();
         }
 
-        public new static List<string> GetQuestions()
+        public static new List<string> GetQuestions()
         {
             List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
             List<string> questionsToUserCar = Car.GetQuestions();
@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
             return questionsToUserFuelVehicle;
         }
 
-        public new static List<string> GetAtributes()
+        public static new List<string> GetAtributes()
         {
             List<string> getAtributesFuelVehicle = FuelVehicle.GetAtributes();
             List<string> getAtributesUserCar = Car.GetAtributes();
@@ -42,26 +42,9 @@ namespace Ex03.GarageLogic
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
-
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detaliesCar = Car.GetAllDetalies();
-            StringBuilder detaliesFuelCar = base.GetAllDetalies();
-            detaliesFuelCar.AppendLine(detaliesCar.ToString());
-            return detaliesFuelCar;
+            return "Vehicle Type: Fuel Car \n" + base.GetAllDetalies() + m_Car.GetAllDetalies();
         }
-
-        public Car Car
-        {
-            get
-            {
-                return m_Car;           
-            }
-
-            set
-            {
-                m_Car = value;
-            }
-        }        
     }
 }

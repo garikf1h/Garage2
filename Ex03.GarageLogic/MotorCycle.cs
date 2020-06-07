@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    public class Motorcycle
+    internal class Motorcycle
     {
         public enum eLicenseType
         {
@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
         private eLicenseType m_LicenseType;
         private int m_EngineVolume;
 
-        public static List<string> getQuestions()
+        public static List<string> GetQuestions()
         {
             List<string> questionsToUser = new List<string>();
             questionsToUser.Add("Please enter license type for the motorcycle:press 0 for A,press 1 for A1,press 2 for A4 Or press 3 for B");
@@ -25,7 +25,7 @@ namespace Ex03.GarageLogic
             return questionsToUser;
         }
 
-        public static List<string> getAtributes()
+        public static List<string> GetAtributes()
         {
             List<string> getAtributes = new List<string>();
             getAtributes.Add("LicenseType");
@@ -33,12 +33,11 @@ namespace Ex03.GarageLogic
             return getAtributes;
         }
 
-        public StringBuilder GetAllDetalies()
+        public string GetAllDetalies()
         {
-            StringBuilder detalies = new StringBuilder();
-            detalies.AppendLine("License Type: " + LicenseType.ToString());
-            detalies.Append("Engine Volume: " + m_EngineVolume.ToString());
-            return detalies;
+            return string.Format(@"
+License Type:{0}
+Engine Volume:{1}", LicenseType.ToString(), m_EngineVolume.ToString());
         }
 
         public void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
@@ -52,12 +51,12 @@ namespace Ex03.GarageLogic
                     throw new ValueOutOfRangeException(0, 3);
                 }
 
-                LicenseType = (eLicenseType)licenseType;
+                m_LicenseType = (eLicenseType)licenseType;
             }
 
             if (i_WhichAttributeToSet == "EngineVolume")
             {
-                EngineVolume = int.Parse(i_InputFromUser);
+                m_EngineVolume = int.Parse(i_InputFromUser);
             }
         }
 
@@ -67,11 +66,6 @@ namespace Ex03.GarageLogic
             {
                 return m_LicenseType;
             }
-
-            set
-            {
-                m_LicenseType = value;
-            }
         }
 
         public int EngineVolume
@@ -79,11 +73,6 @@ namespace Ex03.GarageLogic
             get
             {
                 return m_EngineVolume;
-            }
-
-            set
-            {
-                m_EngineVolume = value;
             }
         }           
     }

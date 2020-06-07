@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class FuelMotorcycle : FuelVehicle
+    public class FuelMotorcycle : FuelVehicle
     {
         private Motorcycle m_Motorcycle;
 
@@ -13,10 +13,10 @@ namespace Ex03.GarageLogic
             m_Motorcycle = new Motorcycle();
         }
 
-        public new static List<string> GetQuestions()
+        public static new List<string> GetQuestions()
         {
             List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
-            List<string> questionsToUserCar = Motorcycle.getQuestions();
+            List<string> questionsToUserCar = Motorcycle.GetQuestions();
             foreach (string str in questionsToUserCar)
             {
                 questionsToUserFuelVehicle.Add(str);
@@ -25,10 +25,10 @@ namespace Ex03.GarageLogic
             return questionsToUserFuelVehicle;
         }
 
-        public new static List<string> GetAtributes()
+        public static new List<string> GetAtributes()
         {
             List<string> getAtributesFuelVehicle = FuelVehicle.GetAtributes();
-            List<string> getAtributesUserCar = Motorcycle.getAtributes();
+            List<string> getAtributesUserCar = Motorcycle.GetAtributes();
             foreach (string str in getAtributesUserCar)
             {
                 getAtributesFuelVehicle.Add(str);
@@ -43,26 +43,9 @@ namespace Ex03.GarageLogic
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
 
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detaliesCar = Motorcycle.GetAllDetalies();
-            StringBuilder detaliesFuelMotorcycle = base.GetAllDetalies();
-            detaliesFuelMotorcycle.AppendLine(detaliesCar.ToString());
-
-            return detaliesFuelMotorcycle;
+            return "Vehicle type: Fuel Motorcycle \n" + base.GetAllDetalies() + m_Motorcycle.GetAllDetalies();
         }
-
-        public Motorcycle Motorcycle
-        {
-            get
-            {
-                return m_Motorcycle;
-            }
-
-            set
-            {
-                m_Motorcycle = value;
-            }
-        }        
     }
 }

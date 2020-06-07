@@ -6,22 +6,22 @@ namespace Ex03.GarageLogic
 {
     public abstract class ElectricVehicle : Vehicle
     {
-        private readonly float r_MaxTimeBattery;
-        private float m_LeftTimeBattery;
+        private readonly float r_MaxBatteryTimeInHours;
+        private float m_LeftBatteryTimeInHours;
 
-        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel)
+        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryTimeInHours) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel)
         {
-            r_MaxTimeBattery = i_MaxBatteryLevel;
+            r_MaxBatteryTimeInHours = i_MaxBatteryTimeInHours;
         }
 
-        protected new static List<string> GetQuestions()
+        protected static new List<string> GetQuestions()
         {
             List<string> questionsToUser = Vehicle.GetQuestions();
             questionsToUser.Add("Please enter left battery time: ");
             return questionsToUser;
         }
 
-        protected new static List<string> GetAtributes()
+        protected static new List<string> GetAtributes()
         {
             List<string> getAtributes = Vehicle.GetAtributes();
             getAtributes.Add("LeftTimeBattery");
@@ -34,12 +34,7 @@ namespace Ex03.GarageLogic
             if (i_WhichAttributeToSet == "LeftTimeBattery")
             {
                 leftTimeBattery = float.Parse(i_InputFromUser); ////exeption
-                if (r_MaxTimeBattery < leftTimeBattery || leftTimeBattery < 0)
-                {
-                    throw new ValueOutOfRangeException(0, r_MaxTimeBattery);
-                }
-
-                LeftTimeBattery = leftTimeBattery;
+                LeftBatteryTimeInHours = leftTimeBattery;
             }
 
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
@@ -47,45 +42,48 @@ namespace Ex03.GarageLogic
 
         public bool CheckAddEnergyIsValid(float i_EnergyToAdd, out float o_MaxAmountToAdd)
         {
-            o_MaxAmountToAdd = r_MaxTimeBattery - m_LeftTimeBattery;
-            return m_LeftTimeBattery + i_EnergyToAdd <= r_MaxTimeBattery && i_EnergyToAdd >= 0;
+            o_MaxAmountToAdd = r_MaxBatteryTimeInHours - m_LeftBatteryTimeInHours;
+            return m_LeftBatteryTimeInHours + i_EnergyToAdd <= r_MaxBatteryTimeInHours && i_EnergyToAdd >= 0;
         }
 
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detalies = base.GetAllDetalies();
-            detalies.AppendLine("Left time battery:" + m_LeftTimeBattery.ToString());
-
-            return detalies;
+            return base.GetAllDetalies() + string.Format(@"
+Left time battery:{0}", m_LeftBatteryTimeInHours.ToString());
         }
 
-        public float LeftTimeBattery
+        public float LeftBatteryTimeInHours
         {
             get
             {
-                return m_LeftTimeBattery;               
+                return m_LeftBatteryTimeInHours;               
             }
 
             set
             {
-                m_LeftTimeBattery = value;
+                if (r_MaxBatteryTimeInHours < value || value < 0)
+                {
+                    throw new ValueOutOfRangeException(0, r_MaxBatteryTimeInHours);
+                }
+                m_LeftBatteryTimeInHours = value;
+                LeftPercentageOfEnergy = (LeftBatteryTimeInHours / r_MaxBatteryTimeInHours) * 100;
             }
         }
 
-        public float MaxTimeBattery
+        public float MaxBatteryTimeInHours
         {
             get
             {
-                return r_MaxTimeBattery;
+                return r_MaxBatteryTimeInHours;
             }
         }
         
-        public bool Charge(float i_EnergyToAdd)
+        public bool ChargeEnergy(float i_EnergyToAdd)
         {
             bool isProccessSuccsseeded = false;
-            if(i_EnergyToAdd + m_LeftTimeBattery <= r_MaxTimeBattery)
+            if(i_EnergyToAdd + m_LeftBatteryTimeInHours <= r_MaxBatteryTimeInHours)
             {
-                m_LeftTimeBattery += i_EnergyToAdd;
+                LeftBatteryTimeInHours += i_EnergyToAdd;
                 isProccessSuccsseeded = true;
             }
 

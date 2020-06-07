@@ -4,24 +4,11 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class ElectricCar : ElectricVehicle
+    public class ElectricCar : ElectricVehicle
     {
         private Car m_Car;
 
-        public Car Car
-        {
-            get
-            {
-                return m_Car;
-            }
-
-            set
-            {
-                m_Car = value;
-            }
-        }
-
-        public new static List<string> GetQuestions()
+        public static new List<string> GetQuestions()
         {
             List<string> questionsToUserElectricVehicle = ElectricVehicle.GetQuestions();
             List<string> questionsToUserCar = Car.GetQuestions();
@@ -33,7 +20,7 @@ namespace Ex03.GarageLogic
             return questionsToUserElectricVehicle;
         }
 
-        public new static List<string> GetAtributes()
+        public static new List<string> GetAtributes()
         {
             List<string> getAtributesFuelVehicle = ElectricVehicle.GetAtributes();
             List<string> getAtributesUserCar = Car.GetAtributes();
@@ -45,47 +32,19 @@ namespace Ex03.GarageLogic
             return getAtributesFuelVehicle;
         }
 
-        public ElectricCar(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
+        public ElectricCar(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryTimeInHours) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxBatteryTimeInHours)
         {
             m_Car = new Car();
         }
 
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detaliesCar = Car.GetAllDetalies();
-            StringBuilder detaliesElectricCar = base.GetAllDetalies();
-            detaliesElectricCar.AppendLine(detaliesCar.ToString());            
-            return detaliesElectricCar;
+            return "Vehicle type: Electric Car \n" + base.GetAllDetalies() + m_Car.GetAllDetalies();
         }
-
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
-        }
-        
-        private float getLeftTimeBatteryFromDictionary(string i_LeftTimeBattery)
-        {
-            bool valid;
-            float LeftTimeBattery;       
-            valid = float.TryParse(i_LeftTimeBattery, out LeftTimeBattery);
-            return LeftTimeBattery;
-        }
-
-        private Car.eCarColor getColorFromDictionary(string i_Color)
-        {
-            bool valid;
-            int color;
-            valid = int.TryParse(i_Color, out color);
-            return (Car.eCarColor)color;
-        }
-
-        private Car.eNumbersOfDoors getNumOfDoorsFromDictionary(string i_NumOfDoorsString)
-        {
-            bool valid;
-            int numOfDoors;
-            valid = int.TryParse(i_NumOfDoorsString, out numOfDoors);
-            return (Car.eNumbersOfDoors)numOfDoors;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.ConsoleUI
 {
-    class Progarm
+    public class Progarm
     {
         public static void Main()
         {

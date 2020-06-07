@@ -122,7 +122,7 @@ namespace Ex03.GarageLogic
             {
                 outputAllVehicles.AppendLine("Car No:" + i);
                 outputAllVehicles.AppendLine("===============================");
-                outputAllVehicles.Append(keyValuePair.Value.GetAllDetalies().ToString());
+                outputAllVehicles.AppendLine(keyValuePair.Value.GetAllDetalies());
                 m_ContactInfoDictionary.TryGetValue(keyValuePair.Key, out customerInfo);
                 outputAllVehicles.AppendLine(customerInfo.getDetalies().ToString());
                 i++;
@@ -133,7 +133,7 @@ namespace Ex03.GarageLogic
 
         public void ChargeEnergy(ElectricVehicle i_VehicleToAddEnregy, float i_MinutesToCharge)
         {
-            i_VehicleToAddEnregy.Charge(i_MinutesToCharge);
+            i_VehicleToAddEnregy.ChargeEnergy(i_MinutesToCharge);
         }
     }
 }

@@ -109,12 +109,7 @@ namespace Ex03.GarageLogic
             get
             {
                 return m_ListOfWheels;
-            }
-
-            set
-            {
-                m_ListOfWheels = value;
-            }       
+            }     
         }
 
         public string LicencsePlateNumber
@@ -142,14 +137,14 @@ namespace Ex03.GarageLogic
             }
         }
   
-        public virtual StringBuilder GetAllDetalies()
+        public virtual string GetAllDetalies()
         {
-            StringBuilder detalies = new StringBuilder();
-            detalies.AppendLine("License plate number:" + r_LicensePlateNumber.ToString() + " ");
-            detalies.AppendLine("Model name:" + r_ModelName.ToString());
-            detalies.AppendLine("Manufcture name of wheels:" + m_ListOfWheels[0].ManufactureName);
-            detalies.AppendLine("Current pressure level of wheels:" + m_ListOfWheels[0].CurrPressureLevel);
-            return detalies;
+
+            return string.Format(@"License plate number:{0}
+Model name:{1}
+Manufcture name of wheels:{2}
+Current pressure level of wheels:{3}
+Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.ToString(), m_ListOfWheels[0].ManufactureName, m_ListOfWheels[0].CurrPressureLevel,LeftPercentageOfEnergy);
         }
 
         public class Wheel

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {
-    class Car
+    internal class Car
     {
         public enum eCarColor
         {
@@ -47,11 +47,6 @@ namespace Ex03.GarageLogic
             {
                 return m_Color;
             }
-
-            set
-            {
-                m_Color = value;
-            }
         }
 
         public eNumbersOfDoors NumOfDoors
@@ -60,19 +55,13 @@ namespace Ex03.GarageLogic
             {
                 return m_NumOfDoors;
             }
-
-            set
-            {
-                m_NumOfDoors = value;
-            }
         }
 
-        public StringBuilder GetAllDetalies()
+        public string GetAllDetalies()
         {
-            StringBuilder detalies = new StringBuilder();
-            detalies.AppendLine("Color Of Vehicle: " + Color.ToString());
-            detalies.Append("Number Of Doors: " + NumOfDoors.ToString());
-            return detalies;
+            return string.Format(@"
+Color Of Vehicle:{0}
+Number Of Doors:{1}", Color.ToString(), NumOfDoors.ToString());
         }
 
         public void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
@@ -80,24 +69,24 @@ namespace Ex03.GarageLogic
             int color, numOfDoors;
             if(i_WhichAttributeToSet == "Color")
             {
-                color = int.Parse(i_InputFromUser); //// exeption
+                color = int.Parse(i_InputFromUser);
                 if (color > 4 || color < 0)
                 {
                     throw new ValueOutOfRangeException(0, 3);
                 }
 
-                Color = (eCarColor)color;
+                m_Color = (eCarColor)color;
             }
 
             if(i_WhichAttributeToSet == "NumOfDoors")
             {
-                numOfDoors = int.Parse(i_InputFromUser); //// exeption
+                numOfDoors = int.Parse(i_InputFromUser);
                 if (numOfDoors > 5 || numOfDoors < 2)
                 {
                     throw new ValueOutOfRangeException(2, 5);
                 }
 
-                NumOfDoors = (eNumbersOfDoors)numOfDoors;
+                m_NumOfDoors = (eNumbersOfDoors)numOfDoors;
             }
         }       
     }

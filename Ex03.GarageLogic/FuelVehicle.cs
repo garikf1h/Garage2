@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Ex03.GarageLogic
 {   
-   public class FuelVehicle : Vehicle
+   public abstract class FuelVehicle : Vehicle
     {
         protected readonly float r_MaxAmountOfFuel;
         protected readonly eFuel r_Fuel;
@@ -24,14 +24,14 @@ namespace Ex03.GarageLogic
             r_Fuel = i_Fuel;
         }
 
-        protected new static List<string> GetQuestions()
+        protected static new List<string> GetQuestions()
         {
             List<string> questionsToUser = Vehicle.GetQuestions();
-            questionsToUser.Add("Please enter current amount of fuel: ");
+            questionsToUser.Add("Please enter current amount of fuel ");
             return questionsToUser;
         }
 
-        protected new static List<string> GetAtributes()
+        protected static new List<string> GetAtributes()
         {
             List<string> getAtributes = Vehicle.GetAtributes();
             getAtributes.Add("CurrAmountOfFuel");
@@ -43,12 +43,7 @@ namespace Ex03.GarageLogic
             float currAmountOfFuel;
             if(i_WhichAttributeToSet == "CurrAmountOfFuel")
             {
-                currAmountOfFuel = float.Parse(i_InputFromUser); ////exeption
-                if(r_MaxAmountOfFuel < currAmountOfFuel || currAmountOfFuel < 0)
-                {
-                    throw new ValueOutOfRangeException(0, r_MaxAmountOfFuel);
-                }
-
+                currAmountOfFuel = float.Parse(i_InputFromUser);
                 CurrAmountOfFuel = currAmountOfFuel;
             }
 
@@ -72,7 +67,13 @@ namespace Ex03.GarageLogic
 
             set
             {
+                if (value > r_MaxAmountOfFuel || value < 0)
+                {
+                    throw new ValueOutOfRangeException(0, r_MaxAmountOfFuel);
+                }
+
                 m_CurrAmountOfFuel = value;
+                LeftPercentageOfEnergy = (CurrAmountOfFuel / r_MaxAmountOfFuel) * 100;
             }
         }
 
@@ -84,12 +85,11 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public override StringBuilder GetAllDetalies()
+        public override string GetAllDetalies()
         {
-            StringBuilder detalies = base.GetAllDetalies();
-            detalies.AppendLine("Type of fuel: " + Fuel.ToString());
-            detalies.AppendLine("Current amount of fuel: " + CurrAmountOfFuel);            
-            return detalies;
+            return base.GetAllDetalies() + string.Format(@"
+Type of fuel:{0}
+Current amount of fuel:{1}", Fuel.ToString(), CurrAmountOfFuel);
         }            
 
         public bool CheckAddFuel(float i_AmountOfFuelToAdd, out float o_MaxAmountPossibleToAdd)
@@ -103,7 +103,7 @@ namespace Ex03.GarageLogic
             bool isSuccseeded = false;
             if(i_FuelToFill == r_Fuel && i_HowMuchToFill + m_CurrAmountOfFuel <= r_MaxAmountOfFuel)
             {
-                m_CurrAmountOfFuel += i_HowMuchToFill;
+                CurrAmountOfFuel += i_HowMuchToFill;
                 isSuccseeded = true;
             }
 
