@@ -15,11 +15,13 @@ namespace Ex03.ConsoleUI
             m_Garage = new Garage();
             RunUI();
         }
+
         public enum eExitOrCont
         {
             Exit = -1,
             Continue
         }
+
         public void RunUI()
         {
             int input;
@@ -139,14 +141,15 @@ namespace Ex03.ConsoleUI
             eExitOrCont exitOrCont = eExitOrCont.Continue;
             Console.WriteLine("Please enter license plate number for car to add energy to, or press -1 to go back to the main menu");
             vehicleToChargeEnergyTo = getValidLicensePlateNumberAndGetVehicle(ref exitOrCont);
-            while(!m_Garage.IsElectricType(vehicleToChargeEnergyTo, out electricVehicleToGet) && exitOrCont!=eExitOrCont.Exit)
+            while(!m_Garage.IsElectricType(vehicleToChargeEnergyTo, out electricVehicleToGet) && exitOrCont != eExitOrCont.Exit)
             {
                 Console.WriteLine("Please enter valid vehicle, this vehicle is not electric, or press -1 to go back to the main menu");
                 vehicleToChargeEnergyTo = getValidLicensePlateNumberAndGetVehicle(ref exitOrCont);
             }
+
             if (exitOrCont != eExitOrCont.Exit)
             {
-                amountOfEnergyToFill = getAmountOfEnergyToAdd(electricVehicleToGet,ref exitOrCont);
+                amountOfEnergyToFill = getAmountOfEnergyToAdd(electricVehicleToGet, ref exitOrCont);
                 if (exitOrCont != eExitOrCont.Exit)
                 {
                     m_Garage.ChargeEnergy(electricVehicleToGet, amountOfEnergyToFill);
@@ -163,9 +166,9 @@ namespace Ex03.ConsoleUI
             string amountOfEnergyToFillStr;
             Console.WriteLine("Please enter amount of energy to charge, or press -1 to go back to the main menu");
             amountOfEnergyToFillStr = Console.ReadLine();
-            PutExitIfMinus1(amountOfEnergyToFillStr, ref io_ExitOrCont);
+            putExitIfMinus1(amountOfEnergyToFillStr, ref io_ExitOrCont);
             isValid = float.TryParse(amountOfEnergyToFillStr, out amountOfEnergyToFill);
-            while((!m_Garage.CheckValidEnergyToAdd(i_vehicle, amountOfEnergyToFill, out maxAmountToAdd) || !isValid) &&(io_ExitOrCont != eExitOrCont.Exit))
+            while((!m_Garage.CheckValidEnergyToAdd(i_vehicle, amountOfEnergyToFill, out maxAmountToAdd) || !isValid) && (io_ExitOrCont != eExitOrCont.Exit))
             {
                 if(!isValid)
                 {
@@ -179,16 +182,21 @@ namespace Ex03.ConsoleUI
                     amountOfEnergyToFillStr = Console.ReadLine();
                     isValid = float.TryParse(amountOfEnergyToFillStr, out amountOfEnergyToFill);
                 }
-                PutExitIfMinus1(amountOfEnergyToFillStr, ref io_ExitOrCont);
+
+                putExitIfMinus1(amountOfEnergyToFillStr, ref io_ExitOrCont);
             }
 
             return amountOfEnergyToFill;
         }
-        private void PutExitIfMinus1(string i_Input, ref eExitOrCont io_ExitOrCont)
+
+        private void putExitIfMinus1(string i_Input, ref eExitOrCont io_ExitOrCont)
         {
             if (i_Input == "-1")
+            {
                 io_ExitOrCont = eExitOrCont.Exit;
+            }
         }
+
         private void pumpWheelsToMaxMenu()
         {
             Vehicle vehicleToPump;
@@ -206,14 +214,13 @@ namespace Ex03.ConsoleUI
         private Vehicle getValidLicensePlateNumberAndGetVehicle(ref eExitOrCont io_ExitOrCont)
         {
             string licensePlateNumber = Console.ReadLine();
-            if (licensePlateNumber == "-1")
-                io_ExitOrCont = eExitOrCont.Exit;
+            putExitIfMinus1(licensePlateNumber, ref io_ExitOrCont);
             Vehicle vehicleToReturn;
             while (!m_Garage.IsCarExists(licensePlateNumber, out vehicleToReturn) && io_ExitOrCont != eExitOrCont.Exit)
             {
                 Console.WriteLine("The car you entered doesn't exist in the garage! please try again. or press -1 to go back to the main menu");
                 licensePlateNumber = Console.ReadLine();
-                PutExitIfMinus1(licensePlateNumber, ref io_ExitOrCont);
+                putExitIfMinus1(licensePlateNumber, ref io_ExitOrCont);
             }
 
             return vehicleToReturn;
@@ -228,14 +235,15 @@ namespace Ex03.ConsoleUI
             eExitOrCont exitOrCont = eExitOrCont.Continue;
             Console.WriteLine("Please enter license plate number for car to add fuel, or press -1 to go back to the main menu");
             vehicle = getValidLicensePlateNumberAndGetVehicle(ref exitOrCont);
-            while (!m_Garage.IsFuelType(vehicle, out fuelVehicleToAddTo)&& exitOrCont!= eExitOrCont.Exit)
+            while (!m_Garage.IsFuelType(vehicle, out fuelVehicleToAddTo) && exitOrCont != eExitOrCont.Exit)
             {
                 Console.WriteLine("The vehicle you entered is not fuel type, please try again , or press -1 to go back to the main menu");
                 vehicle = getValidLicensePlateNumberAndGetVehicle(ref exitOrCont);
             }
+
             if (exitOrCont != eExitOrCont.Exit)
             {
-                typeOfFuelToAdd = getFuelFromUser(fuelVehicleToAddTo,ref exitOrCont);
+                typeOfFuelToAdd = getFuelFromUser(fuelVehicleToAddTo, ref exitOrCont);
                 if (exitOrCont != eExitOrCont.Exit)
                 {
                     amountOfFuelToAdd = getAmountOfFuelToAdd(fuelVehicleToAddTo, ref exitOrCont);
@@ -249,27 +257,27 @@ namespace Ex03.ConsoleUI
             }
         }
 
-        private float getAmountOfFuelToAdd(FuelVehicle i_FuelVehicleToAdd,ref eExitOrCont io_ExitOrCont)
+        private float getAmountOfFuelToAdd(FuelVehicle i_FuelVehicleToAdd, ref eExitOrCont io_ExitOrCont)
         {
             string amountOfFuelStr;
             float amountOfFuelToAdd, maxAmountToadd;
             bool isSuccseeded;
             Console.WriteLine("Please enter amount of fuel to add, or press -1 to go back to the main menu");
             amountOfFuelStr = Console.ReadLine();
-            PutExitIfMinus1(amountOfFuelStr, ref io_ExitOrCont);
+            putExitIfMinus1(amountOfFuelStr, ref io_ExitOrCont);
             isSuccseeded = float.TryParse(amountOfFuelStr, out amountOfFuelToAdd);
-            while ((!m_Garage.CanAddFuel(amountOfFuelToAdd, i_FuelVehicleToAdd, out maxAmountToadd) || !isSuccseeded)&& io_ExitOrCont != eExitOrCont.Exit)
+            while ((!m_Garage.CanAddFuel(amountOfFuelToAdd, i_FuelVehicleToAdd, out maxAmountToadd) || !isSuccseeded) && io_ExitOrCont != eExitOrCont.Exit)
             {
                 Console.WriteLine("Invalid amount, max amount possible to add is" + maxAmountToadd + " please add valid amount");
                 amountOfFuelStr = Console.ReadLine();
                 isSuccseeded = float.TryParse(amountOfFuelStr, out amountOfFuelToAdd);
-                PutExitIfMinus1(amountOfFuelStr, ref io_ExitOrCont);
+                putExitIfMinus1(amountOfFuelStr, ref io_ExitOrCont);
             }
 
             return amountOfFuelToAdd;
         }
 
-        private FuelVehicle.eFuel getFuelFromUser(FuelVehicle i_FuelVehicle,ref eExitOrCont io_ExitOrCont)
+        private FuelVehicle.eFuel getFuelFromUser(FuelVehicle i_FuelVehicle, ref eExitOrCont io_ExitOrCont)
         {
             string numStr;
             int numOfFuel;
@@ -277,9 +285,9 @@ namespace Ex03.ConsoleUI
             FuelVehicle.eFuel correctFuelType;
             Console.WriteLine("Please enter type of fuel to add, 0 - soler, 1 - octan95, 2 - octan96, 3 - octan98, or press -1 to go back to the main menu");
             numStr = Console.ReadLine();
-            PutExitIfMinus1(numStr, ref io_ExitOrCont);
+            putExitIfMinus1(numStr, ref io_ExitOrCont);
             isSuccseeded = int.TryParse(numStr, out numOfFuel);
-            while((!isSuccseeded || !isValidOptionType(numOfFuel) || !m_Garage.IfFuelFits(i_FuelVehicle, (FuelVehicle.eFuel)numOfFuel, out correctFuelType)) &&io_ExitOrCont != eExitOrCont.Exit)
+            while((!isSuccseeded || !isValidOptionType(numOfFuel) || !m_Garage.IfFuelFits(i_FuelVehicle, (FuelVehicle.eFuel)numOfFuel, out correctFuelType)) && io_ExitOrCont != eExitOrCont.Exit)
             {
                 if (!isSuccseeded || !isValidOptionType(numOfFuel))
                 {
@@ -293,7 +301,7 @@ namespace Ex03.ConsoleUI
                 }
 
                 numStr = Console.ReadLine();
-                PutExitIfMinus1(numStr, ref io_ExitOrCont);
+                putExitIfMinus1(numStr, ref io_ExitOrCont);
                 isSuccseeded = int.TryParse(numStr, out numOfFuel);
             }
 
@@ -333,9 +341,8 @@ namespace Ex03.ConsoleUI
         {
             int repairStatus;
             string repairStatusStr = Console.ReadLine();
-            if (repairStatusStr == "-1")
-                io_ExitOrCont = eExitOrCont.Exit;
-            while ((!int.TryParse(repairStatusStr, out repairStatus) || !isValidOptionType(repairStatus)) && io_ExitOrCont!=eExitOrCont.Exit)
+            putExitIfMinus1(repairStatusStr, ref io_ExitOrCont);
+            while ((!int.TryParse(repairStatusStr, out repairStatus) || !isValidOptionType(repairStatus)) && io_ExitOrCont != eExitOrCont.Exit)
             {
                 Console.WriteLine("Invalid choise. please enter digit 0- in repair, 1- fixed, 2- was paid");
             }
@@ -390,7 +397,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    Console.WriteLine(i_ListOfQuestions[i]+" or enter -1 to cancel the adding and go back to the main menu");
+                    Console.WriteLine(i_ListOfQuestions[i] + " or enter -1 to cancel the adding and go back to the main menu");
                     input = Console.ReadLine();
                     i_Vehicle.SetAttribute(i_ListOfAttributesToGet[i], input);
                 }

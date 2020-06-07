@@ -40,7 +40,7 @@ namespace Ex03.GarageLogic
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
 
-        public bool CheckAddEnergyIsValid(float i_EnergyToAdd, out float o_MaxAmountToAdd)
+        internal bool CheckAddEnergyIsValid(float i_EnergyToAdd, out float o_MaxAmountToAdd)
         {
             o_MaxAmountToAdd = r_MaxBatteryTimeInHours - m_LeftBatteryTimeInHours;
             return m_LeftBatteryTimeInHours + i_EnergyToAdd <= r_MaxBatteryTimeInHours && i_EnergyToAdd >= 0;
@@ -49,7 +49,8 @@ namespace Ex03.GarageLogic
         public override string GetAllDetalies()
         {
             return base.GetAllDetalies() + string.Format(@"
-Left time battery:{0}", m_LeftBatteryTimeInHours.ToString());
+Left time battery:{0}",
+m_LeftBatteryTimeInHours.ToString());
         }
 
         public float LeftBatteryTimeInHours
@@ -65,6 +66,7 @@ Left time battery:{0}", m_LeftBatteryTimeInHours.ToString());
                 {
                     throw new ValueOutOfRangeException(0, r_MaxBatteryTimeInHours);
                 }
+
                 m_LeftBatteryTimeInHours = value;
                 LeftPercentageOfEnergy = (LeftBatteryTimeInHours / r_MaxBatteryTimeInHours) * 100;
             }
@@ -78,7 +80,7 @@ Left time battery:{0}", m_LeftBatteryTimeInHours.ToString());
             }
         }
         
-        public bool ChargeEnergy(float i_EnergyToAdd)
+        internal bool ChargeEnergy(float i_EnergyToAdd)
         {
             bool isProccessSuccsseeded = false;
             if(i_EnergyToAdd + m_LeftBatteryTimeInHours <= r_MaxBatteryTimeInHours)

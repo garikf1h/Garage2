@@ -6,7 +6,7 @@ namespace Ex03.GarageLogic
 {
     internal class Car
     {
-        public enum eCarColor
+        internal enum eCarColor
         {
             Red,
             White,
@@ -14,7 +14,7 @@ namespace Ex03.GarageLogic
             Silver
         }
 
-        public enum eNumbersOfDoors
+        internal enum eNumbersOfDoors
         {
             Two = 2,
             Three,
@@ -25,15 +25,15 @@ namespace Ex03.GarageLogic
         private eCarColor m_Color;
         private eNumbersOfDoors m_NumOfDoors;
 
-        public static List<string> GetQuestions()
+        internal static List<string> GetQuestions()
         {
             List<string> questionsToUser = new List<string>();
             questionsToUser.Add("Please enter color of the vehicle: enter 0 digit for Red, enter 1 digit for White, enter 2 digit for Black, enter 3 digit for Silver");
-            questionsToUser.Add("Please enter how many doors in the vehicle(enter 2-5):Two, Three, Four, Five");
+            questionsToUser.Add("Please enter how many doors in the vehicle between 2 to 5");
             return questionsToUser;
         }
 
-        public static List<string> GetAtributes()
+        internal static List<string> GetAtributes()
         {
             List<string> getAtributes = new List<string>();
             getAtributes.Add("Color");
@@ -57,14 +57,15 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public string GetAllDetalies()
+        internal string GetAllDetalies()
         {
             return string.Format(@"
 Color Of Vehicle:{0}
-Number Of Doors:{1}", Color.ToString(), NumOfDoors.ToString());
+Number Of Doors:{1}",
+Color.ToString(), NumOfDoors.ToString());
         }
 
-        public void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
+        internal void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             int color, numOfDoors;
             if(i_WhichAttributeToSet == "Color")

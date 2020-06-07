@@ -89,16 +89,17 @@ namespace Ex03.GarageLogic
         {
             return base.GetAllDetalies() + string.Format(@"
 Type of fuel:{0}
-Current amount of fuel:{1}", Fuel.ToString(), CurrAmountOfFuel);
+Current amount of fuel:{1}",
+Fuel.ToString(), CurrAmountOfFuel);
         }            
 
-        public bool CheckAddFuel(float i_AmountOfFuelToAdd, out float o_MaxAmountPossibleToAdd)
+        internal bool CheckAddFuel(float i_AmountOfFuelToAdd, out float o_MaxAmountPossibleToAdd)
         {
            o_MaxAmountPossibleToAdd = r_MaxAmountOfFuel - m_CurrAmountOfFuel;
            return i_AmountOfFuelToAdd + m_CurrAmountOfFuel <= r_MaxAmountOfFuel && i_AmountOfFuelToAdd >= 0;
         }
 
-        public bool FillFuel(eFuel i_FuelToFill, float i_HowMuchToFill)
+        internal bool FillFuel(eFuel i_FuelToFill, float i_HowMuchToFill)
         {
             bool isSuccseeded = false;
             if(i_FuelToFill == r_Fuel && i_HowMuchToFill + m_CurrAmountOfFuel <= r_MaxAmountOfFuel)

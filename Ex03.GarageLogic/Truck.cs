@@ -16,7 +16,7 @@ namespace Ex03.GarageLogic
             m_Car = new Car();
         }
 
-        public static new List<string> GetQuestions()
+        internal static new List<string> GetQuestions()
         {
             List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
             List<string> questionsToUserCar = Car.GetQuestions();
@@ -30,7 +30,7 @@ namespace Ex03.GarageLogic
             return questionsToUserFuelVehicle;
         }
 
-       public static new List<string> GetAtributes()
+       internal static new List<string> GetAtributes()
         {
             List<string> atributesFuelVehicle = FuelVehicle.GetAtributes();
             List<string> atributesToUserCar = Car.GetAtributes();
@@ -48,8 +48,10 @@ namespace Ex03.GarageLogic
         {
             return "Vehicle type: Truck \n" + base.GetAllDetalies() + m_Car.GetAllDetalies() + string.Format(@"
 Truck carry volume is:{0}
-Is carry dangerous material:{1}", m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
+Is carry dangerous material:{1}",
+m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
         }
+
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             if(i_WhichAttributeToSet == "CarryVolume")

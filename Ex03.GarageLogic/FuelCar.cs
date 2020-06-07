@@ -42,6 +42,7 @@ namespace Ex03.GarageLogic
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
+
         public override string GetAllDetalies()
         {
             return "Vehicle Type: Fuel Car \n" + base.GetAllDetalies() + m_Car.GetAllDetalies();

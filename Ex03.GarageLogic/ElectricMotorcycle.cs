@@ -41,6 +41,7 @@ namespace Ex03.GarageLogic
         {
             return "Vehicle type: Electric Motorcycle \n" + base.GetAllDetalies() + m_Motorcycle.GetAllDetalies();
         }
+
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             m_Motorcycle.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);

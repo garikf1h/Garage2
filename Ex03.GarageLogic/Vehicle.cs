@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
                     ManufactureNames[i] = i_InputFromUser;
                 }
 
-                UpdateListOfWheels(ManufactureNames);
+                updateListOfWheels(ManufactureNames);
             }
 
             if(i_WhichAttributeToSet == "CurrPressureLevel")
@@ -61,7 +61,7 @@ namespace Ex03.GarageLogic
                     currPressureLevelArr[i] = currPressureLevel;
                 }
 
-                UpdateListOfWheels(currPressureLevelArr);
+                updateListOfWheels(currPressureLevelArr);
             }
         }
   
@@ -73,7 +73,7 @@ namespace Ex03.GarageLogic
             }       
         }
 
-        protected void UpdateListOfWheels(float[] i_CurrPressureLevelArr)
+        private void updateListOfWheels(float[] i_CurrPressureLevelArr)
         {
             int i = 0;
             foreach (Wheel currWheel in ListOfWheels)
@@ -82,7 +82,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        protected void UpdateListOfWheels(string[] i_ManufactureNameArr)
+        private void updateListOfWheels(string[] i_ManufactureNameArr)
         {
             int i = 0;
             foreach (Wheel currWheel in ListOfWheels)
@@ -129,7 +129,7 @@ namespace Ex03.GarageLogic
             }
         }
 
-        public void PumpAllWheels()
+        internal void PumpAllWheels()
         {
             foreach (Wheel currWheelToPump in m_ListOfWheels)
             {
@@ -139,12 +139,11 @@ namespace Ex03.GarageLogic
   
         public virtual string GetAllDetalies()
         {
-
             return string.Format(@"License plate number:{0}
 Model name:{1}
 Manufcture name of wheels:{2}
 Current pressure level of wheels:{3}
-Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.ToString(), m_ListOfWheels[0].ManufactureName, m_ListOfWheels[0].CurrPressureLevel,LeftPercentageOfEnergy);
+Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.ToString(), m_ListOfWheels[0].ManufactureName, m_ListOfWheels[0].CurrPressureLevel, LeftPercentageOfEnergy);
         }
 
         public class Wheel
@@ -192,12 +191,12 @@ Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.To
                 }
             }
 
-            public void PumpWheelToMax()
+            internal void PumpWheelToMax()
             {
                 m_CurrPressureLevel = r_MaxPressureLevel;
             }
 
-            public void PumpWheel(float i_PressuureToAdd)    
+            private void pumpWheel(float i_PressuureToAdd)    
             {        
                 if(this.m_CurrPressureLevel + i_PressuureToAdd <= r_MaxPressureLevel)
                 {
