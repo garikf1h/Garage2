@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Ex03.GarageLogic;
 using System.Threading;
+using Ex03.GarageLogic;
+
 namespace Ex03.ConsoleUI
 {
     public class UI
     {
         private Garage m_Garage;
+
         public UI()
         {
             m_Garage = new Garage();
             RunUI();
         }
+
         public void RunUI()
         {
             int input;
@@ -31,88 +34,101 @@ namespace Ex03.ConsoleUI
                             AddVehicleToGarageMenu();
                             break;
                         }
+
                     case 2:
                         {
                             ShowVehiclesByLicensePlateNumber();
                             break;
                         }
+
                     case 3:
                         {
                             ChangeStatOfCarMenu();
                             break;
                         }
+
                     case 4:
                         {
                             PumpWheelsToMaxMenu();
                             break;
                         }
+
                     case 5:
                         {
                             FillFuelMenu();
                             break;
                         }
+
                     case 6:
                         {
                             ChargeEnergyMenu();
                             break;
                         }
+
                     case 7:
                         {
                             PrintAllVehicles();
                             break;
                         }
+
                     default:
                         {
                             Console.WriteLine("This wasn't a correct choise");
                             break;
                         }
                 }
+
                 Console.WriteLine("Select an option from the following options:");
                 Menu();
                 input = GetValidChoise();
             }
+
             Console.WriteLine("Have a nice day");
         }
+
         public void PrintAllVehicles()
         {
             StringBuilder outputMess = m_Garage.GetAllVehicles();
             Console.WriteLine(outputMess);
         }
+
         public int GetValidChoise()
         {
             int input;
             string inputString = Console.ReadLine();
-            while(!int.TryParse(inputString,out input))
+            while(!int.TryParse(inputString, out input))
             {
                 Console.Write("This wasn't correct choise! please pick a digit from the list!");
                 inputString = Console.ReadLine();
-
             }
+
             return input;
         }
+
         public void ShowVehiclesByLicensePlateNumber()
         {
             eRepairStatus repairStatus;
             repairStatus = GetValidRepairStatus();
             StringBuilder outputVehicles = m_Garage.GetVehiclesByLicensePlateNumberAndStatus(repairStatus);
             Console.WriteLine(outputVehicles);
-
         }
+
         public eRepairStatus GetValidRepairStatus()
         {
             string repairStatusStr;
             int repairStatus;
             Console.WriteLine("Please enter the status of vehicles you want to see:press 0-InRepair, press 1- Fixed, press 2- Paid, press 3- All");
             repairStatusStr = Console.ReadLine();
-            while(!int.TryParse(repairStatusStr,out repairStatus)||(repairStatus>4||repairStatus<0))
+            while(!int.TryParse(repairStatusStr, out repairStatus) || (repairStatus > 4 || repairStatus < 0))
             {
                 Console.WriteLine("Wrong choise!");
                 Console.WriteLine("Please enter the status of vehicles you want to see:press 0-InRepair, press 1- Fixed, press 2- Paid, press 3- All");
                 repairStatusStr = Console.ReadLine();
             }
-            return (eRepairStatus)repairStatus;
 
+            return (eRepairStatus)repairStatus;
         }
+
         public void ChargeEnergyMenu()
         {
             float amountOfEnergyToFill;
@@ -125,6 +141,7 @@ namespace Ex03.ConsoleUI
                 Console.WriteLine("Please enter valid vehicle, this vehicle is not electric");
                 vehicle = GetValidLicensePlateNumberAndGetVehicle();
             }
+
             amountOfEnergyToFill = GetAmountOfEnergyToAdd(electricVehicleToGet);
             m_Garage.ChargeEnergy(electricVehicleToGet, amountOfEnergyToFill);
             Console.WriteLine("The energy was charged! Going back to the main menu");
@@ -133,11 +150,11 @@ namespace Ex03.ConsoleUI
 
         public float GetAmountOfEnergyToAdd(ElectricVehicle i_vehicle)
         {
-            float amountOfEnergyToFill , maxAmountToAdd;
+            float amountOfEnergyToFill, maxAmountToAdd;
             bool isValid;
             Console.WriteLine("Please enter amount of energy to charge");
             isValid = float.TryParse(Console.ReadLine(), out amountOfEnergyToFill);
-            while(!m_Garage.CheckValidEnergyToAdd(i_vehicle,amountOfEnergyToFill, out maxAmountToAdd) || !isValid)
+            while(!m_Garage.CheckValidEnergyToAdd(i_vehicle, amountOfEnergyToFill, out maxAmountToAdd) || !isValid)
             {
                 if(!isValid)
                 {
@@ -153,27 +170,30 @@ namespace Ex03.ConsoleUI
 
             return amountOfEnergyToFill;
         }
+
         public void PumpWheelsToMaxMenu()
         {
             Vehicle vehicle;
             Console.WriteLine("Please enter license plate number for car to pump wheels to max");
-            vehicle= GetValidLicensePlateNumberAndGetVehicle();
+            vehicle = GetValidLicensePlateNumberAndGetVehicle();
             m_Garage.FillWheelsOfVehicleToMax(vehicle);
             Console.WriteLine("The wheels was pumped! Going back to the main menu");
             Thread.Sleep(1000);
         }
+
         public Vehicle GetValidLicensePlateNumberAndGetVehicle()
         {
             string licensePlateNumber = Console.ReadLine();
             Vehicle vehicleToReturn;
-            while (!m_Garage.IsCarExists(licensePlateNumber,out vehicleToReturn))
+            while (!m_Garage.IsCarExists(licensePlateNumber, out vehicleToReturn))
             {
                 Console.WriteLine("The car you entered doesn't exist in the garage! please try again");
                 licensePlateNumber = Console.ReadLine();
             }
-            return vehicleToReturn;
 
+            return vehicleToReturn;
         }
+
         public void FillFuelMenu()
         {
             float amountOfFuelToAdd;
@@ -183,16 +203,16 @@ namespace Ex03.ConsoleUI
             do
             {
                 Console.WriteLine("Please enter license plate number for car to add fuel");
-                vehicleToGet= GetValidLicensePlateNumberAndGetVehicle();
+                vehicleToGet = GetValidLicensePlateNumberAndGetVehicle();
             }
-            while (!m_Garage.IsFuelType(vehicleToGet,out fuelVehicleToGet));
+            while (!m_Garage.IsFuelType(vehicleToGet, out fuelVehicleToGet));
             typeOfFuelToAdd = getFuelFromUser(fuelVehicleToGet);
             amountOfFuelToAdd = GetAmountOfFuelToAdd(fuelVehicleToGet);
             m_Garage.FillFuel(fuelVehicleToGet, typeOfFuelToAdd, amountOfFuelToAdd);
             Console.WriteLine("The fuel was fiiled! Going back to the main menu");
             Thread.Sleep(1000);
-
         }
+
         public float GetAmountOfFuelToAdd(FuelVehicle i_FuelVehicleToAdd)
         {
             string amountOfFuelStr;
@@ -201,15 +221,15 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter amount of fuel to add");
             amountOfFuelStr = Console.ReadLine();
             isSuccseeded = float.TryParse(amountOfFuelStr, out amountOfFuelToAdd);
-            while (!m_Garage.CanAddFuel(amountOfFuelToAdd, i_FuelVehicleToAdd, out maxAmountToadd)||!isSuccseeded)
+            while (!m_Garage.CanAddFuel(amountOfFuelToAdd, i_FuelVehicleToAdd, out maxAmountToadd) || !isSuccseeded)
             {
                 Console.WriteLine("Invalid amount, max amount possible to add is" + maxAmountToadd + " please add valid amount");
                 amountOfFuelStr = Console.ReadLine();
                 isSuccseeded = float.TryParse(amountOfFuelStr, out amountOfFuelToAdd);
             }
+
             return amountOfFuelToAdd;
         }
-
 
         public FuelVehicle.eFuel getFuelFromUser(FuelVehicle i_FuelVehicle)
         {
@@ -220,7 +240,7 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("Please enter type of fuel to add, 0 - soler, 1 - octan95, 2 - octan96, 3 - octan98");
             numStr = Console.ReadLine();
             isSuccseeded = int.TryParse(numStr, out numOfFuel);
-            while(!isSuccseeded || !isValidOptionType(numOfFuel) || !m_Garage.IfFuelFits(i_FuelVehicle,(FuelVehicle.eFuel)(numOfFuel),out correctFuelType))
+            while(!isSuccseeded || !isValidOptionType(numOfFuel) || !m_Garage.IfFuelFits(i_FuelVehicle, (FuelVehicle.eFuel)numOfFuel, out correctFuelType))
             {
                 if (!isSuccseeded || !isValidOptionType(numOfFuel))
                 {
@@ -228,19 +248,22 @@ namespace Ex03.ConsoleUI
                 }
                 else
                 {
-                    m_Garage.IfFuelFits(i_FuelVehicle, (FuelVehicle.eFuel)(numOfFuel), out correctFuelType);
+                    m_Garage.IfFuelFits(i_FuelVehicle, (FuelVehicle.eFuel)numOfFuel, out correctFuelType);
                     Console.WriteLine("Wrong Choise! The fuel you enterded doesn't fit the car's fuel, the correct fuel type is: " + correctFuelType);
                 }
+
                 numStr = Console.ReadLine();
                 isSuccseeded = int.TryParse(numStr, out numOfFuel);
             }
-            return (FuelVehicle.eFuel)(numOfFuel);
+
+            return (FuelVehicle.eFuel)numOfFuel;
         }
 
         public bool isValidOptionType(int i_Num)
         {
-            return (i_Num == 0 || i_Num == 1 || i_Num == 2 || i_Num == 3);
+            return i_Num == 0 || i_Num == 1 || i_Num == 2 || i_Num == 3;
         }
+
         public void ChangeStatOfCarMenu()
         {
             Vehicle vehicleToGet;
@@ -259,12 +282,14 @@ namespace Ex03.ConsoleUI
         {
             int repairStatus;
             string repairStatusStr = Console.ReadLine();
-            while(!int.TryParse(repairStatusStr,out repairStatus)|| !isValidOptionType(repairStatus))
+            while(!int.TryParse(repairStatusStr, out repairStatus) || !isValidOptionType(repairStatus))
             {
                 Console.WriteLine("Invalid choise. please enter digit 0- in repair, 1- fixed, 2- was paid");
             }
+
             return (eRepairStatus)repairStatus;
         }
+
         public void AddVehicleToGarageMenu()
         {
             Vehicle vehicleToAddGarage, vehicleExists;
@@ -277,7 +302,7 @@ namespace Ex03.ConsoleUI
                 customerInfo = GetCustomerInfo();
                 m_Garage.AddVehicleToGarage(vehicleToAddGarage, customerInfo);
                 Console.WriteLine("The vehicle was added successfully to the garage system");
-            }
+            }        
             else
             {
                 m_Garage.ChangeStatusOfCar(vehicleExists, eRepairStatus.InRepair);
@@ -301,7 +326,7 @@ namespace Ex03.ConsoleUI
             return vehicleToAddToGarage;
         }
 
-        public void GetAndSetInputAccordingToQuestions(Vehicle i_Vehicle, List <string> i_ListOfQuestions, List<string> i_ListOfAttributesToGet)
+        public void GetAndSetInputAccordingToQuestions(Vehicle i_Vehicle, List<string> i_ListOfQuestions, List<string> i_ListOfAttributesToGet)
         {
             string input;
             for (int i = 0; i < i_ListOfQuestions.Count; i++)
@@ -324,15 +349,17 @@ namespace Ex03.ConsoleUI
                 }
             }
         }
+
         public void PrintSupportedTypes()
         {
             StringBuilder outputMess = new StringBuilder();
             CreateNewObjForGarage.eVehicle[] vehicleTypes = CreateNewObjForGarage.GetSupportedTypes();
             for (int i = 0; i < vehicleTypes.Length; i++)
             {
-                outputMess.Append("for "+ vehicleTypes[i]);
-                outputMess.AppendLine(" press " + (int)vehicleTypes[i]+" ");
+                outputMess.Append("for " + vehicleTypes[i]);
+                outputMess.AppendLine(" press " + (int)vehicleTypes[i] + " ");
             }
+
             Console.WriteLine(outputMess);
         }
 
@@ -341,13 +368,15 @@ namespace Ex03.ConsoleUI
             CreateNewObjForGarage.eVehicle[] vehicleTypes = CreateNewObjForGarage.GetSupportedTypes();
             string vehicleTypeStr = Console.ReadLine();
             int vehicleType;
-            while(!int.TryParse(vehicleTypeStr, out vehicleType)||!IsCorrectTypeOfVehicle(vehicleType))
+            while(!int.TryParse(vehicleTypeStr, out vehicleType) || !IsCorrectTypeOfVehicle(vehicleType))
             {
                 Console.WriteLine("Please enter a digit from the options");
                 vehicleTypeStr = Console.ReadLine();
             }
+
             return (CreateNewObjForGarage.eVehicle)vehicleType;
         }
+
         public bool IsCorrectTypeOfVehicle(int i_VehicleType)
         {
             CreateNewObjForGarage.eVehicle[] vehicleTypes = CreateNewObjForGarage.GetSupportedTypes();
@@ -355,10 +384,14 @@ namespace Ex03.ConsoleUI
             for (int i = 0; i < vehicleTypes.Length; i++)
             {
                 if ((int)vehicleTypes[i] == i_VehicleType)
+                {
                     isCorrect = true;
+                }
             }
+
             return isCorrect;
         }
+
         public CustomerInfo GetCustomerInfo()
         {
             string inputName, inputPhone;
@@ -381,7 +414,6 @@ namespace Ex03.ConsoleUI
 7.Show information about car
 8.Exit
 ");
-
             Console.WriteLine(menuMsg);
         }
     }
