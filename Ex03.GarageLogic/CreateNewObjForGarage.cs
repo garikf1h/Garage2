@@ -5,8 +5,7 @@ using System.Text;
 namespace Ex03.GarageLogic
 {
     public static class CreateNewObjForGarage
-    {
-        
+    {        
         public enum eVehicle
         {
             FuelCar,
@@ -22,8 +21,9 @@ namespace Ex03.GarageLogic
         {
             return s_SupportedTypes;
         }
-       public static Vehicle MakeNewVehicle(eVehicle TypeToCreate, string i_ModelName, string i_LicensePlateNumber, out List<string> o_QuestionsToAsk, out List<string> o_Attributes)
-       {
+
+        public static Vehicle MakeNewVehicle(eVehicle TypeToCreate, string i_ModelName, string i_LicensePlateNumber, out List<string> o_QuestionsToAsk, out List<string> o_Attributes)
+        {
             switch (TypeToCreate)
             {     
                 case eVehicle.ElectricCar:
@@ -44,7 +44,7 @@ namespace Ex03.GarageLogic
                     {
                         o_QuestionsToAsk = ElectricMotorcycle.GetQuestions();
                         o_Attributes = ElectricMotorcycle.GetAtributes();
-                        return new ElectricMotorcycle(i_ModelName, i_LicensePlateNumber,2, 30, 1.2f);
+                        return new ElectricMotorcycle(i_ModelName, i_LicensePlateNumber, 2, 30, 1.2f);
                     }
 
                 case eVehicle.FuelMotorcycle:
@@ -69,7 +69,6 @@ namespace Ex03.GarageLogic
                         return null;
                     }
             }
-       }
-    
+        }    
     }
 }

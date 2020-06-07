@@ -6,14 +6,41 @@ namespace Ex03.GarageLogic
 {
     class Truck : FuelVehicle
     {
+        private const float k_MaxPressureOfWheel = 28;
         private Car m_Car;
         private bool m_isCarryDangerousMaterial;
         private float m_CarryVolume;
-        private const float k_MaxPressureOfWheel = 28;
 
-        public Truck(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, FuelVehicle.eFuel i_FuelType, float i_MaxAmountOfFuel) : base(i_ModelName, i_LicensePlateNumber,i_NumOfWheels,i_MaxPressureLevelForWheel, i_MaxAmountOfFuel,i_FuelType)
+        public Truck(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, FuelVehicle.eFuel i_FuelType, float i_MaxAmountOfFuel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxAmountOfFuel, i_FuelType)
         {
             m_Car = new Car();
+        }
+
+        public new static List<string> GetQuestions()
+        {
+            List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
+            List<string> questionsToUserCar = Car.GetQuestions();
+            foreach (string str in questionsToUserCar)
+            {
+                questionsToUserFuelVehicle.Add(str);
+            }
+            questionsToUserFuelVehicle.Add("Please enter true if the truck carry dangerous material, or false if doesn't");
+            questionsToUserFuelVehicle.Add("Please enter the carry volume of the car");
+            return questionsToUserFuelVehicle;
+        }
+
+        public new static List<string> GetAtributes()
+        {
+            List<string> atributesFuelVehicle = FuelVehicle.GetAtributes();
+            List<string> atributesToUserCar = Car.GetAtributes();
+            foreach (string str in atributesToUserCar)
+            {
+                atributesFuelVehicle.Add(str);
+            }
+
+            atributesFuelVehicle.Add("IsCarryDangerousMaterial");
+            atributesFuelVehicle.Add("CarryVolume");
+            return atributesFuelVehicle;
         }
 
         public override StringBuilder GetAllDetalies()
@@ -40,33 +67,7 @@ namespace Ex03.GarageLogic
 
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
-        }
-
-        public new static List<string> GetQuestions()
-        {
-            List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
-            List<string> questionsToUserCar = Car.GetQuestions();
-            foreach (string str in questionsToUserCar)
-            {
-                questionsToUserFuelVehicle.Add(str);
-            }
-            questionsToUserFuelVehicle.Add("Please enter true if the truck carry dangerous material, or false if doesn't");
-            questionsToUserFuelVehicle.Add("Please enter the carry volume of the car");
-            return questionsToUserFuelVehicle;
-        }
-
-        public new static List<string> GetAtributes()
-        {
-            List<string> atributesFuelVehicle = FuelVehicle.GetAtributes();
-            List<string> atributesToUserCar = Car.GetAtributes();
-            foreach (string str in atributesToUserCar)
-            {
-                atributesFuelVehicle.Add(str);
-            }
-            atributesFuelVehicle.Add("IsCarryDangerousMaterial");
-            atributesFuelVehicle.Add("CarryVolume");
-            return atributesFuelVehicle;
-        }
+        }        
 
         public float CarryVolume
         {

@@ -6,10 +6,10 @@ namespace Ex03.GarageLogic
 {
     public abstract class ElectricVehicle : Vehicle
     {
-        private float m_LeftTimeBattery;
         private readonly float r_MaxTimeBattery;
+        private float m_LeftTimeBattery;
 
-        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel): base(i_ModelName, i_LicensePlateNumber,i_NumOfWheels, i_MaxPressureLevelForWheel)
+        public ElectricVehicle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel)
         {
             r_MaxTimeBattery = i_MaxBatteryLevel;
         }
@@ -33,15 +33,16 @@ namespace Ex03.GarageLogic
             float leftTimeBattery;
             if (i_WhichAttributeToSet == "LeftTimeBattery")
             {
-                leftTimeBattery = float.Parse(i_InputFromUser);//exeption
+                leftTimeBattery = float.Parse(i_InputFromUser); ////exeption
                 if (r_MaxTimeBattery < leftTimeBattery || leftTimeBattery < 0)
                 {
                     throw new ValueOutOfRangeException(0, r_MaxTimeBattery);
                 }
+
                 LeftTimeBattery = leftTimeBattery;
             }
-            base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
 
+            base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
 
         public bool CheckAddEnergyIsValid(float i_EnergyToAdd, out float o_MaxAmountToAdd)
@@ -82,11 +83,12 @@ namespace Ex03.GarageLogic
         public bool Charge(float i_EnergyToAdd)
         {
             bool isProccessSuccsseeded = false;
-            if(i_EnergyToAdd+m_LeftTimeBattery<=r_MaxTimeBattery)
+            if(i_EnergyToAdd + m_LeftTimeBattery <= r_MaxTimeBattery)
             {
                 m_LeftTimeBattery += i_EnergyToAdd;
                 isProccessSuccsseeded = true;
             }
+
             return isProccessSuccsseeded;
         }
     }

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace Ex03.GarageLogic
-{
-   
+{   
    public class FuelVehicle : Vehicle
     {
+        protected readonly float r_MaxAmountOfFuel;
         protected readonly eFuel r_Fuel;
         protected float m_CurrAmountOfFuel;
-        protected readonly float r_MaxAmountOfFuel;
-
 
         public enum eFuel
         {
@@ -45,23 +43,24 @@ namespace Ex03.GarageLogic
             float currAmountOfFuel;
             if(i_WhichAttributeToSet == "CurrAmountOfFuel")
             {
-                currAmountOfFuel = float.Parse(i_InputFromUser);//exeption
-                if (r_MaxAmountOfFuel < currAmountOfFuel || currAmountOfFuel < 0)
+                currAmountOfFuel = float.Parse(i_InputFromUser); ////exeption
+                if(r_MaxAmountOfFuel < currAmountOfFuel || currAmountOfFuel < 0)
                 {
                     throw new ValueOutOfRangeException(0, r_MaxAmountOfFuel);
                 }
+
                 CurrAmountOfFuel = currAmountOfFuel;
             }
-            base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
 
+            base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
+
         public eFuel Fuel
         {
             get
             {
                 return r_Fuel;
             }
-
         }
 
         public float CurrAmountOfFuel
@@ -83,13 +82,12 @@ namespace Ex03.GarageLogic
             {
                 return r_MaxAmountOfFuel;
             }
-
         }
 
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detalies = base.GetAllDetalies();
-            detalies.AppendLine("Type of fuel: "+ Fuel.ToString());
+            detalies.AppendLine("Type of fuel: " + Fuel.ToString());
             detalies.AppendLine("Current amount of fuel: " + CurrAmountOfFuel);            
             return detalies;
         }            

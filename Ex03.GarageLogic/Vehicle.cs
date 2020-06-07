@@ -11,7 +11,7 @@ namespace Ex03.GarageLogic
         protected float m_LeftPercentageOfEnergy;
         protected List<Wheel> m_ListOfWheels;
 
-        public Vehicle(string i_ModelName, string i_LicensePlateNumber,int i_NumOfWheels, float i_MaxPressureForWheel)
+        public Vehicle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureForWheel)
         {
             r_ModelName = i_ModelName;
             r_LicensePlateNumber = i_LicensePlateNumber;
@@ -43,12 +43,13 @@ namespace Ex03.GarageLogic
                 {
                     ManufactureNames[i] = i_InputFromUser;
                 }
+
                 UpdateListOfWheels(ManufactureNames);
             }
 
             if(i_WhichAttributeToSet == "CurrPressureLevel")
             {
-                float currPressureLevel = float.Parse(i_InputFromUser); //can throw an exeption
+                float currPressureLevel = float.Parse(i_InputFromUser); ////can throw an exeption
                 float[] currPressureLevelArr = new float[ListOfWheels.Count];
                 if (currPressureLevel > m_ListOfWheels[0].MaxPressureLevel || currPressureLevel < 0)
                 {
@@ -72,7 +73,7 @@ namespace Ex03.GarageLogic
             }       
         }
 
-        protected void UpdateListOfWheels(float [] i_CurrPressureLevelArr)
+        protected void UpdateListOfWheels(float[] i_CurrPressureLevelArr)
         {
             int i = 0;
             foreach (Wheel currWheel in ListOfWheels)
@@ -80,6 +81,7 @@ namespace Ex03.GarageLogic
                 currWheel.CurrPressureLevel = i_CurrPressureLevelArr[i];
             }
         }
+
         protected void UpdateListOfWheels(string[] i_ManufactureNameArr)
         {
             int i = 0;
@@ -108,6 +110,7 @@ namespace Ex03.GarageLogic
             {
                 return m_ListOfWheels;
             }
+
             set
             {
                 m_ListOfWheels = value;
@@ -142,7 +145,7 @@ namespace Ex03.GarageLogic
         public virtual StringBuilder GetAllDetalies()
         {
             StringBuilder detalies = new StringBuilder();
-            detalies.AppendLine("License plate number:" + r_LicensePlateNumber.ToString()+ " ");
+            detalies.AppendLine("License plate number:" + r_LicensePlateNumber.ToString() + " ");
             detalies.AppendLine("Model name:" + r_ModelName.ToString());
             detalies.AppendLine("Manufcture name of wheels:" + m_ListOfWheels[0].ManufactureName);
             detalies.AppendLine("Current pressure level of wheels:" + m_ListOfWheels[0].CurrPressureLevel);
@@ -151,9 +154,10 @@ namespace Ex03.GarageLogic
 
         public class Wheel
         {
+            private readonly float r_MaxPressureLevel;
             private string m_ManufactureName;
             private float m_CurrPressureLevel;
-            private readonly float r_MaxPressureLevel;
+
             public Wheel(float i_MaxPressureLevel)
             {
                 this.r_MaxPressureLevel = i_MaxPressureLevel;
@@ -178,6 +182,7 @@ namespace Ex03.GarageLogic
                 {
                     return m_CurrPressureLevel;
                 }
+
                 set
                 {
                     m_CurrPressureLevel = value;

@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private Motorcycle m_Motorcycle;
 
-        public ElectricMotorcycle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber,i_NumOfWheels,i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
+        public ElectricMotorcycle(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
         {
             m_Motorcycle = new Motorcycle();
         }

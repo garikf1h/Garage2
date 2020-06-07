@@ -10,7 +10,6 @@ namespace Ex03.GarageLogic
         private Dictionary<string, CustomerInfo> m_ContactInfoDictionary;
         private Dictionary<string, Vehicle> m_Vehicles;
 
-
         public Garage()
         {
             m_ContactInfoDictionary = new Dictionary<string, CustomerInfo>();
@@ -39,7 +38,6 @@ namespace Ex03.GarageLogic
 
         public void FillWheelsOfVehicleToMax(Vehicle i_Vehicle)
         {
-
            i_Vehicle.PumpAllWheels();
         }
 
@@ -61,12 +59,13 @@ namespace Ex03.GarageLogic
             {
                 withoutStatus = false;
             }
-            foreach (KeyValuePair<string, CustomerInfo> keyValuePair in m_ContactInfoDictionary)
+
+            foreach(KeyValuePair<string, CustomerInfo> keyValuePair in m_ContactInfoDictionary)
             {
                 if (keyValuePair.Value.CarRepairStatus == i_RepairStatus || withoutStatus)
                 {
                     outputString.Append("Car No " + index.ToString() + " ");
-                    outputString.Append("License plate number:" +keyValuePair.Key.ToString());
+                    outputString.Append("License plate number:" + keyValuePair.Key.ToString());
                     outputString.AppendLine(" Status:" + keyValuePair.Value.CarRepairStatus.ToString());
                     index++;
                 }
@@ -77,7 +76,6 @@ namespace Ex03.GarageLogic
 
         public bool CanAddFuel(float i_AmountOfFuelToAdd, FuelVehicle i_FuelVehicle, out float o_MaxAmountPossibleToAdd)
         {
-
             return i_FuelVehicle.CheckAddFuel(i_AmountOfFuelToAdd, out o_MaxAmountPossibleToAdd);
         }
 
@@ -87,12 +85,12 @@ namespace Ex03.GarageLogic
             return i_Vehicle is ElectricVehicle;
         }
 
-
         public bool IfFuelFits(FuelVehicle i_FuelVehicle, FuelVehicle.eFuel i_Fuel, out FuelVehicle.eFuel o_CorrectFuelType)
         {
             o_CorrectFuelType = i_FuelVehicle.Fuel;
             return i_FuelVehicle.Fuel == i_Fuel;
         }
+
         public bool IsCarExists(string i_LicensePlateNumber, out Vehicle o_Vehicle)
         {
             return m_Vehicles.TryGetValue(i_LicensePlateNumber, out o_Vehicle);
@@ -109,10 +107,12 @@ namespace Ex03.GarageLogic
             FuelVehicle fuelVehicle = i_Vehicle as FuelVehicle;
             return fuelVehicle.Fuel == i_Fuel;
         }
-        public bool IsVehicleExistsInGarage(string i_LicensePlateNumber,out Vehicle o_VehicleInGarage)
+
+        public bool IsVehicleExistsInGarage(string i_LicensePlateNumber, out Vehicle o_VehicleInGarage)
         {
-           return m_Vehicles.TryGetValue(i_LicensePlateNumber,out o_VehicleInGarage);
+           return m_Vehicles.TryGetValue(i_LicensePlateNumber, out o_VehicleInGarage);
         }
+
         public StringBuilder GetAllVehicles()
         {
             StringBuilder outputAllVehicles = new StringBuilder();
@@ -127,6 +127,7 @@ namespace Ex03.GarageLogic
                 outputAllVehicles.AppendLine(customerInfo.getDetalies().ToString());
                 i++;
             }
+
             return outputAllVehicles;
         }
 

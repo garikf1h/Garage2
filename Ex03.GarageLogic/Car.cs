@@ -13,6 +13,7 @@ namespace Ex03.GarageLogic
             Black,
             Silver
         }
+
         public enum eNumbersOfDoors
         {
             Two = 2,
@@ -46,6 +47,7 @@ namespace Ex03.GarageLogic
             {
                 return m_Color;
             }
+
             set
             {
                 m_Color = value;
@@ -58,38 +60,43 @@ namespace Ex03.GarageLogic
             {
                 return m_NumOfDoors;
             }
+
             set
             {
                 m_NumOfDoors = value;
             }
         }
 
-        public  StringBuilder GetAllDetalies()
+        public StringBuilder GetAllDetalies()
         {
             StringBuilder detalies = new StringBuilder();
             detalies.AppendLine("Color Of Vehicle: " + Color.ToString());
             detalies.Append("Number Of Doors: " + NumOfDoors.ToString());
             return detalies;
         }
+
         public void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
-            int color,numOfDoors;
-            if (i_WhichAttributeToSet == "Color")
+            int color, numOfDoors;
+            if(i_WhichAttributeToSet == "Color")
             {
-                color = int.Parse(i_InputFromUser);// exeption
-                if (4 < color || color < 0)
+                color = int.Parse(i_InputFromUser); //// exeption
+                if (color > 4 || color < 0)
                 {
                     throw new ValueOutOfRangeException(0, 3);
                 }
+
                 Color = (eCarColor)color;
             }
-            if (i_WhichAttributeToSet == "NumOfDoors")
+
+            if(i_WhichAttributeToSet == "NumOfDoors")
             {
-                numOfDoors = int.Parse(i_InputFromUser);// exeption
-                if (5 < numOfDoors || numOfDoors < 2)
+                numOfDoors = int.Parse(i_InputFromUser); //// exeption
+                if (numOfDoors > 5 || numOfDoors < 2)
                 {
                     throw new ValueOutOfRangeException(2, 5);
                 }
+
                 NumOfDoors = (eNumbersOfDoors)numOfDoors;
             }
         }       

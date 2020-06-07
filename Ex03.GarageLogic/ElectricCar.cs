@@ -7,6 +7,7 @@ namespace Ex03.GarageLogic
     class ElectricCar : ElectricVehicle
     {
         private Car m_Car;
+
         public Car Car
         {
             get
@@ -44,7 +45,7 @@ namespace Ex03.GarageLogic
             return getAtributesFuelVehicle;
         }
 
-        public ElectricCar(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels,float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber,i_NumOfWheels,i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
+        public ElectricCar(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
         {
             m_Car = new Car();
         }
@@ -53,9 +54,7 @@ namespace Ex03.GarageLogic
         {
             StringBuilder detaliesCar = Car.GetAllDetalies();
             StringBuilder detaliesElectricCar = base.GetAllDetalies();
-            detaliesElectricCar.AppendLine(detaliesCar.ToString());
-            
-
+            detaliesElectricCar.AppendLine(detaliesCar.ToString());            
             return detaliesElectricCar;
         }
 

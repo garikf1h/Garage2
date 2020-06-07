@@ -39,9 +39,10 @@ namespace Ex03.GarageLogic
 
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
-            m_Car.SetAttribute(i_WhichAttributeToSet,i_InputFromUser);
+            m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
+
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detaliesCar = Car.GetAllDetalies();

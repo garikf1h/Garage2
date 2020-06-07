@@ -46,11 +46,12 @@ namespace Ex03.GarageLogic
             int licenseType;
             if (i_WhichAttributeToSet == "LicenseType")
             {
-                licenseType = int.Parse(i_InputFromUser);// exeption
-                if (4 < licenseType || licenseType < 0)
+                licenseType = int.Parse(i_InputFromUser); //// exeption
+                if(licenseType > 4 || licenseType < 0)
                 {
                     throw new ValueOutOfRangeException(0, 3);
                 }
+
                 LicenseType = (eLicenseType)licenseType;
             }
 
