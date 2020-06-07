@@ -8,8 +8,9 @@ namespace Ex03.ConsoleUI
 {
     internal class UI
     {
+        private const int k_DelayTime = 2000;
         private Garage m_Garage;
-
+        
         public UI()
         {
             m_Garage = new Garage();
@@ -29,9 +30,10 @@ namespace Ex03.ConsoleUI
             Console.WriteLine("=======================================");
             printMenu();
             input = getValidChoise();
-            Console.Clear();
+            
             while (input != 8)
             {
+                Console.Clear();
                 switch (input)
                 {
                     case 1:
@@ -82,7 +84,7 @@ namespace Ex03.ConsoleUI
                             break;
                         }
                 }
-
+                
                 printMenu();
                 input = getValidChoise();
             }
@@ -92,8 +94,18 @@ namespace Ex03.ConsoleUI
 
         private void printAllVehicles()
         {
-            StringBuilder outputMess = m_Garage.GetAllVehicles();
-            Console.WriteLine(outputMess);
+            bool isListEmpty;
+            StringBuilder outputMess = m_Garage.GetAllVehicles(out isListEmpty);
+            if (!isListEmpty)
+            {
+                Console.WriteLine(outputMess);
+            }
+            else
+            {
+                Console.WriteLine("No vehicles in garage!");
+            }
+
+            Thread.Sleep(k_DelayTime);
         }
 
         private int getValidChoise()
@@ -111,13 +123,24 @@ namespace Ex03.ConsoleUI
 
         private void showVehiclesByLicensePlateNumber()
         {
+            bool isEmptyList;
             eRepairStatus repairStatus;
-            repairStatus = getValidRepairStatus();
-            StringBuilder outputVehicles = m_Garage.GetVehiclesByLicensePlateNumberAndStatus(repairStatus);
-            Console.WriteLine(outputVehicles);
+            repairStatus = getValidRepairStatusForList();
+            
+            StringBuilder outputVehicles = m_Garage.GetVehiclesByLicensePlateNumberAndStatus(repairStatus, out isEmptyList);
+            if (!isEmptyList)
+            {
+                Console.WriteLine(outputVehicles);
+            }
+            else
+            {
+                Console.WriteLine("No vehicles in garage with the status you've chosen");
+            }
+
+            Thread.Sleep(k_DelayTime);
         }
 
-        private eRepairStatus getValidRepairStatus()
+        private eRepairStatus getValidRepairStatusForList()
         {
             string repairStatusStr;
             int repairStatus;
@@ -154,7 +177,7 @@ namespace Ex03.ConsoleUI
                 {
                     m_Garage.ChargeEnergy(electricVehicleToGet, amountOfEnergyToFill);
                     Console.WriteLine(string.Format("Energy of {0} was charged to vehicle with license plate number of {1}, current energy level is:{2}", amountOfEnergyToFill, electricVehicleToGet.LicencsePlateNumber, electricVehicleToGet.LeftBatteryTimeInHours));
-                    Thread.Sleep(1500);
+                    Thread.Sleep(k_DelayTime);
                 }
             }
         }
@@ -194,6 +217,9 @@ namespace Ex03.ConsoleUI
             if (i_Input == "-1")
             {
                 io_ExitOrCont = eExitOrCont.Exit;
+                Console.WriteLine("Going back to the main menu");
+                Thread.Sleep(k_DelayTime);
+                Console.Clear();
             }
         }
 
@@ -207,7 +233,7 @@ namespace Ex03.ConsoleUI
             {
                 m_Garage.FillWheelsOfVehicleToMax(vehicleToPump);
                 Console.WriteLine(string.Format("The wheels in car with license plate number of {0} was pumped! Going back to the main menu", vehicleToPump.LicencsePlateNumber));
-                Thread.Sleep(1500);
+                Thread.Sleep(k_DelayTime);
             }
         }
 
@@ -251,7 +277,7 @@ namespace Ex03.ConsoleUI
                     {
                         m_Garage.FillFuel(fuelVehicleToAddTo, typeOfFuelToAdd, amountOfFuelToAdd);
                         Console.WriteLine(string.Format("The fuel was fiiled to vehicle with license plate number of {0}. Current amount of fuel in the vehicle is :{1}! Going back to the main menu", fuelVehicleToAddTo.LicencsePlateNumber, fuelVehicleToAddTo.CurrAmountOfFuel));
-                        Thread.Sleep(1500);
+                        Thread.Sleep(k_DelayTime);
                     }
                 }
             }
@@ -332,7 +358,7 @@ namespace Ex03.ConsoleUI
                     m_Garage.ChangeStatusOfCar(vehicleToGet, repairStatus);
                     Console.Clear();
                     Console.WriteLine(string.Format("The status of {0} was changed to {1}", vehicleToGet.LicencsePlateNumber, repairStatus));
-                    Thread.Sleep(1500);
+                    Thread.Sleep(k_DelayTime);
                 }
             }
         }
@@ -361,17 +387,16 @@ namespace Ex03.ConsoleUI
                 vehicleToAddGarage = getVehicle(licensePlateNumber);
                 customerInfo = getCustomerInfo();
                 m_Garage.AddVehicleToGarage(vehicleToAddGarage, customerInfo);
-                Console.Clear();
                 Console.WriteLine(string.Format("The vehicle with license plate number of {0} was added to the garage!", vehicleToAddGarage.LicencsePlateNumber));
-                Thread.Sleep(1500);
             }        
             else
             {
                 m_Garage.ChangeStatusOfCar(vehicleExists, eRepairStatus.InRepair);
-                Console.Clear();
                 Console.WriteLine(string.Format("The vehicle with license plate number of {0} is already exists in the garage system, status was changed to inRepair", vehicleExists.LicencsePlateNumber));
-                Thread.Sleep(1500);
             }
+
+                Thread.Sleep(k_DelayTime);
+                Console.Clear();
         }
 
         private Vehicle getVehicle(string i_LicensePlateNumber)
@@ -397,7 +422,7 @@ namespace Ex03.ConsoleUI
             {
                 try
                 {
-                    Console.WriteLine(i_ListOfQuestions[i] + " or enter -1 to cancel the adding and go back to the main menu");
+                    Console.WriteLine(i_ListOfQuestions[i]);
                     input = Console.ReadLine();
                     i_Vehicle.SetAttribute(i_ListOfAttributesToGet[i], input);
                 }

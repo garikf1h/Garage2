@@ -46,11 +46,12 @@ namespace Ex03.GarageLogic
             i_FuelVehicle.FillFuel(i_Fuel, i_HowMuchToFill);
         }
 
-        public StringBuilder GetVehiclesByLicensePlateNumberAndStatus(eRepairStatus i_RepairStatus)
+        public StringBuilder GetVehiclesByLicensePlateNumberAndStatus(eRepairStatus i_RepairStatus, out bool o_IsEmptyList)
         {
             StringBuilder outputString = new StringBuilder();
             int index = 1;
             bool withoutStatus;
+            o_IsEmptyList = true;
             if (i_RepairStatus == (eRepairStatus)3)
             {
                 withoutStatus = true;
@@ -62,11 +63,12 @@ namespace Ex03.GarageLogic
 
             foreach(KeyValuePair<string, CustomerCard> keyValuePair in m_ContactInfoDictionary)
             {
+                o_IsEmptyList = false;
                 if (keyValuePair.Value.CarRepairStatus == i_RepairStatus || withoutStatus)
                 {
-                    outputString.Append("Car No " + index.ToString() + " ");
-                    outputString.Append("License plate number:" + keyValuePair.Key.ToString());
-                    outputString.AppendLine(" Status:" + keyValuePair.Value.CarRepairStatus.ToString());
+                    outputString.Append("Car No " + index.ToString() + ":");
+                    outputString.Append(", License plate number:" + keyValuePair.Key.ToString());
+                    outputString.AppendLine(", Status:" + keyValuePair.Value.CarRepairStatus.ToString());
                     index++;
                 }
             }
@@ -113,13 +115,15 @@ namespace Ex03.GarageLogic
            return m_Vehicles.TryGetValue(i_LicensePlateNumber, out o_VehicleInGarage);
         }
 
-        public StringBuilder GetAllVehicles()
+        public StringBuilder GetAllVehicles(out bool o_IsListEmpty)
         {
             StringBuilder outputAllVehicles = new StringBuilder();
             CustomerCard customerInfo;
             int i = 1;
+            o_IsListEmpty = true;
             foreach (KeyValuePair<string, Vehicle> keyValuePair in m_Vehicles)
             {
+                o_IsListEmpty = false;
                 outputAllVehicles.AppendLine("Car No:" + i);
                 outputAllVehicles.AppendLine("===============================");
                 outputAllVehicles.AppendLine(keyValuePair.Value.GetAllDetalies());
