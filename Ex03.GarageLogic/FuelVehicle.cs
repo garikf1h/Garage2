@@ -26,6 +26,20 @@ namespace Ex03.GarageLogic
             r_Fuel = i_Fuel;
         }
 
+        protected new static List<string> GetQuestions()
+        {
+            List<string> questionsToUser = Vehicle.GetQuestions();
+            questionsToUser.Add("Please enter current amount of fuel: ");
+            return questionsToUser;
+        }
+
+        protected new static List<string> GetAtributes()
+        {
+            List<string> getAtributes = Vehicle.GetAtributes();
+            getAtributes.Add("CurrAmountOfFuel");
+            return getAtributes;
+        }
+
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             float currAmountOfFuel;
@@ -56,6 +70,7 @@ namespace Ex03.GarageLogic
             {
                 return m_CurrAmountOfFuel;
             }
+
             set
             {
                 m_CurrAmountOfFuel = value;
@@ -75,32 +90,16 @@ namespace Ex03.GarageLogic
         {
             StringBuilder detalies = base.GetAllDetalies();
             detalies.AppendLine("Type of fuel: "+ Fuel.ToString());
-            detalies.AppendLine("Current amount of fuel: " + CurrAmountOfFuel);
-            
+            detalies.AppendLine("Current amount of fuel: " + CurrAmountOfFuel);            
             return detalies;
-        }
-
-     
-        protected new static List<string> getQuestions()
-        {
-            List<string> questionsToUser = Vehicle.getQuestions();
-            questionsToUser.Add( "Please enter current amount of fuel: ");
-            return questionsToUser;
-        }
-
-        protected new static List<string> getAtributes()
-        {
-            List<string> getAtributes = Vehicle.getAtributes();
-            getAtributes.Add("CurrAmountOfFuel");
-            return getAtributes;
-        }
-
+        }            
 
         public bool CheckAddFuel(float i_AmountOfFuelToAdd, out float o_MaxAmountPossibleToAdd)
         {
            o_MaxAmountPossibleToAdd = r_MaxAmountOfFuel - m_CurrAmountOfFuel;
            return i_AmountOfFuelToAdd + m_CurrAmountOfFuel <= r_MaxAmountOfFuel && i_AmountOfFuelToAdd >= 0;
         }
+
         public bool FillFuel(eFuel i_FuelToFill, float i_HowMuchToFill)
         {
             bool isSuccseeded = false;
@@ -109,8 +108,8 @@ namespace Ex03.GarageLogic
                 m_CurrAmountOfFuel += i_HowMuchToFill;
                 isSuccseeded = true;
             }
+
             return isSuccseeded;
         }
-
     }
 }

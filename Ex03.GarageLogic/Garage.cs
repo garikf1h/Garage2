@@ -54,9 +54,13 @@ namespace Ex03.GarageLogic
             int index = 1;
             bool withoutStatus;
             if (i_RepairStatus == (eRepairStatus)3)
+            {
                 withoutStatus = true;
+            }
             else
+            {
                 withoutStatus = false;
+            }
             foreach (KeyValuePair<string, CustomerInfo> keyValuePair in m_ContactInfoDictionary)
             {
                 if (keyValuePair.Value.CarRepairStatus == i_RepairStatus || withoutStatus)
@@ -67,6 +71,7 @@ namespace Ex03.GarageLogic
                     index++;
                 }
             }
+
             return outputString;
         }
 
@@ -104,11 +109,11 @@ namespace Ex03.GarageLogic
             FuelVehicle fuelVehicle = i_Vehicle as FuelVehicle;
             return fuelVehicle.Fuel == i_Fuel;
         }
-        public bool isVehicleExistsInGarage(string i_LicensePlateNumber,out Vehicle o_VehicleInGarage)
+        public bool IsVehicleExistsInGarage(string i_LicensePlateNumber,out Vehicle o_VehicleInGarage)
         {
            return m_Vehicles.TryGetValue(i_LicensePlateNumber,out o_VehicleInGarage);
         }
-        public StringBuilder getAllVehicles()
+        public StringBuilder GetAllVehicles()
         {
             StringBuilder outputAllVehicles = new StringBuilder();
             CustomerInfo customerInfo;

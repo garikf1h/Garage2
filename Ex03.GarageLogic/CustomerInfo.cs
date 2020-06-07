@@ -32,6 +32,7 @@ namespace Ex03.GarageLogic
             {
                 return m_CarRepairStatus;
             }
+
             set
             {
                 m_CarRepairStatus = value;

@@ -75,7 +75,7 @@ namespace Ex03.ConsoleUI
         }
         public void PrintAllVehicles()
         {
-            StringBuilder outputMess = m_Garage.getAllVehicles();
+            StringBuilder outputMess = m_Garage.GetAllVehicles();
             Console.WriteLine(outputMess);
         }
         public int GetValidChoise()
@@ -271,7 +271,7 @@ namespace Ex03.ConsoleUI
             CustomerInfo customerInfo;
             Console.WriteLine("Please enter the license plate number");
             string licensePlateNumber = Console.ReadLine();
-            if (!m_Garage.isVehicleExistsInGarage(licensePlateNumber, out vehicleExists))
+            if (!m_Garage.IsVehicleExistsInGarage(licensePlateNumber, out vehicleExists))
             {
                 vehicleToAddGarage = GetVehicle(licensePlateNumber);
                 customerInfo = GetCustomerInfo();

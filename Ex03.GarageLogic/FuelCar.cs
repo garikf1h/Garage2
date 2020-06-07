@@ -13,6 +13,29 @@ namespace Ex03.GarageLogic
             m_Car = new Car();
         }
 
+        public new static List<string> GetQuestions()
+        {
+            List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
+            List<string> questionsToUserCar = Car.GetQuestions();
+            foreach (string str in questionsToUserCar)
+            {
+                questionsToUserFuelVehicle.Add(str);
+            }
+
+            return questionsToUserFuelVehicle;
+        }
+
+        public new static List<string> GetAtributes()
+        {
+            List<string> getAtributesFuelVehicle = FuelVehicle.GetAtributes();
+            List<string> getAtributesUserCar = Car.GetAtributes();
+            foreach (string str in getAtributesUserCar)
+            {
+                getAtributesFuelVehicle.Add(str);
+            }
+
+            return getAtributesFuelVehicle;
+        }
 
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
@@ -24,43 +47,20 @@ namespace Ex03.GarageLogic
             StringBuilder detaliesCar = Car.GetAllDetalies();
             StringBuilder detaliesFuelCar = base.GetAllDetalies();
             detaliesFuelCar.AppendLine(detaliesCar.ToString());
-
-
             return detaliesFuelCar;
         }
+
         public Car Car
         {
             get
             {
                 return m_Car;           
             }
+
             set
             {
                 m_Car = value;
             }
-        }
-
-        public new static List<string> getQuestions()
-        {
-            List<string> questionsToUserFuelVehicle = FuelVehicle.getQuestions();
-            List<string> questionsToUserCar = Car.GetQuestions();
-            foreach (string str in questionsToUserCar)
-            {
-                questionsToUserFuelVehicle.Add(str);
-            }
-            return questionsToUserFuelVehicle;
-        }
-
-        public new static List<string> getAtributes()
-        {
-            List<string> getAtributesFuelVehicle = FuelVehicle.getAtributes();
-            List<string> getAtributesUserCar = Car.GetAtributes();
-            foreach (string str in getAtributesUserCar)
-            {
-                getAtributesFuelVehicle.Add(str);
-            }
-            return getAtributesFuelVehicle;
-        }
-
+        }        
     }
 }

@@ -17,6 +17,7 @@ namespace Ex03.GarageLogic
             m_Motorcycle.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
+
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detaliesCar = Motorcycle.GetAllDetalies();
@@ -31,33 +32,35 @@ namespace Ex03.GarageLogic
             {
                 return m_Motorcycle;
             }
+
             set
             {
                 m_Motorcycle = value;
             }
         }
 
-        public new static List<string> getQuestions()
+        public new static List<string> GetQuestions()
         {
-            List<string> questionsToUserFuelVehicle = FuelVehicle.getQuestions();
+            List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
             List<string> questionsToUserCar = Motorcycle.getQuestions();
             foreach (string str in questionsToUserCar)
             {
                 questionsToUserFuelVehicle.Add(str);
             }
+
             return questionsToUserFuelVehicle;
         }
 
-        public new static List<string> getAtributes()
+        public new static List<string> GetAtributes()
         {
-            List<string> getAtributesFuelVehicle = FuelVehicle.getAtributes();
+            List<string> getAtributesFuelVehicle = FuelVehicle.GetAtributes();
             List<string> getAtributesUserCar = Motorcycle.getAtributes();
             foreach (string str in getAtributesUserCar)
             {
                 getAtributesFuelVehicle.Add(str);
             }
+
             return getAtributesFuelVehicle;
         }
-
     }
 }

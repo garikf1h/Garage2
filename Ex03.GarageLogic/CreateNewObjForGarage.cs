@@ -15,7 +15,9 @@ namespace Ex03.GarageLogic
             ElectricMotorcycle,
             Truck
         }
+
         private static eVehicle[] s_SupportedTypes = { eVehicle.FuelCar, eVehicle.FuelMotorcycle, eVehicle.ElectricCar, eVehicle.ElectricMotorcycle, eVehicle.Truck };
+
         public static eVehicle[] GetSupportedTypes()
         {
             return s_SupportedTypes;
@@ -26,35 +28,40 @@ namespace Ex03.GarageLogic
             {     
                 case eVehicle.ElectricCar:
                     {
-                        o_QuestionsToAsk = ElectricCar.getQuestions();
-                        o_Attributes = ElectricCar.getAtributes();
+                        o_QuestionsToAsk = ElectricCar.GetQuestions();
+                        o_Attributes = ElectricCar.GetAtributes();
                         return new ElectricCar(i_ModelName, i_LicensePlateNumber, 4, 32, 2.1f);
                     }
+
                 case eVehicle.FuelCar:
                     {
-                        o_QuestionsToAsk = FuelCar.getQuestions();
-                        o_Attributes = FuelCar.getAtributes();
+                        o_QuestionsToAsk = FuelCar.GetQuestions();
+                        o_Attributes = FuelCar.GetAtributes();
                         return new FuelCar(i_ModelName, i_LicensePlateNumber, 4, 32, FuelVehicle.eFuel.Octan96, 60);
                     }
+
                 case eVehicle.ElectricMotorcycle:
                     {
-                        o_QuestionsToAsk = ElectricMotorcycle.getQuestions();
-                        o_Attributes = ElectricMotorcycle.getAtributes();
+                        o_QuestionsToAsk = ElectricMotorcycle.GetQuestions();
+                        o_Attributes = ElectricMotorcycle.GetAtributes();
                         return new ElectricMotorcycle(i_ModelName, i_LicensePlateNumber,2, 30, 1.2f);
                     }
+
                 case eVehicle.FuelMotorcycle:
                     {
-                        o_QuestionsToAsk = FuelMotorcycle.getQuestions();
-                        o_Attributes = FuelMotorcycle.getAtributes();
+                        o_QuestionsToAsk = FuelMotorcycle.GetQuestions();
+                        o_Attributes = FuelMotorcycle.GetAtributes();
 
                         return new FuelMotorcycle(i_ModelName, i_LicensePlateNumber, 2, 30, FuelVehicle.eFuel.Octan95, 7);
                     }
+
                 case eVehicle.Truck:
                     {
-                        o_QuestionsToAsk = Truck.getQuestions();
-                        o_Attributes = Truck.getAtributes();
+                        o_QuestionsToAsk = Truck.GetQuestions();
+                        o_Attributes = Truck.GetAtributes();
                         return new Truck(i_ModelName, i_LicensePlateNumber, 16, 28, FuelVehicle.eFuel.Soler, 120);
                     }
+
                  default:
                     {
                         o_QuestionsToAsk = null;

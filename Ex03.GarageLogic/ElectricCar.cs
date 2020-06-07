@@ -13,16 +13,42 @@ namespace Ex03.GarageLogic
             {
                 return m_Car;
             }
+
             set
             {
                 m_Car = value;
             }
         }
 
+        public new static List<string> GetQuestions()
+        {
+            List<string> questionsToUserElectricVehicle = ElectricVehicle.GetQuestions();
+            List<string> questionsToUserCar = Car.GetQuestions();
+            foreach (string str in questionsToUserCar)
+            {
+                questionsToUserElectricVehicle.Add(str);
+            }
+
+            return questionsToUserElectricVehicle;
+        }
+
+        public new static List<string> GetAtributes()
+        {
+            List<string> getAtributesFuelVehicle = ElectricVehicle.GetAtributes();
+            List<string> getAtributesUserCar = Car.GetAtributes();
+            foreach (string str in getAtributesUserCar)
+            {
+                getAtributesFuelVehicle.Add(str);
+            }
+
+            return getAtributesFuelVehicle;
+        }
+
         public ElectricCar(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels,float i_MaxPressureLevelForWheel, float i_MaxBatteryLevel) : base(i_ModelName, i_LicensePlateNumber,i_NumOfWheels,i_MaxPressureLevelForWheel, i_MaxBatteryLevel)
         {
             m_Car = new Car();
         }
+
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detaliesCar = Car.GetAllDetalies();
@@ -38,28 +64,7 @@ namespace Ex03.GarageLogic
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
-
-        public new static List<string> getQuestions()
-        {
-            List<string> questionsToUserElectricVehicle = ElectricVehicle.getQuestions();
-            List<string> questionsToUserCar = Car.GetQuestions();
-            foreach (string str in questionsToUserCar)
-            {
-                questionsToUserElectricVehicle.Add(str);
-            }
-            return questionsToUserElectricVehicle;
-        }
-
-        public new static List<string> getAtributes()
-        {
-            List<string> getAtributesFuelVehicle = ElectricVehicle.getAtributes();
-            List<string> getAtributesUserCar = Car.GetAtributes();
-            foreach (string str in getAtributesUserCar)
-            {
-                getAtributesFuelVehicle.Add(str);
-            }
-            return getAtributesFuelVehicle;
-        }
+        
         private float getLeftTimeBatteryFromDictionary(string i_LeftTimeBattery)
         {
             bool valid;

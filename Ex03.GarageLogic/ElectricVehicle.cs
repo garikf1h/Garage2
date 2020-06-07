@@ -14,6 +14,20 @@ namespace Ex03.GarageLogic
             r_MaxTimeBattery = i_MaxBatteryLevel;
         }
 
+        protected new static List<string> GetQuestions()
+        {
+            List<string> questionsToUser = Vehicle.GetQuestions();
+            questionsToUser.Add("Please enter left battery time: ");
+            return questionsToUser;
+        }
+
+        protected new static List<string> GetAtributes()
+        {
+            List<string> getAtributes = Vehicle.GetAtributes();
+            getAtributes.Add("LeftTimeBattery");
+            return getAtributes;
+        }
+
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             float leftTimeBattery;
@@ -35,6 +49,7 @@ namespace Ex03.GarageLogic
             o_MaxAmountToAdd = r_MaxTimeBattery - m_LeftTimeBattery;
             return m_LeftTimeBattery + i_EnergyToAdd <= r_MaxTimeBattery && i_EnergyToAdd >= 0;
         }
+
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detalies = base.GetAllDetalies();
@@ -49,6 +64,7 @@ namespace Ex03.GarageLogic
             {
                 return m_LeftTimeBattery;               
             }
+
             set
             {
                 m_LeftTimeBattery = value;
@@ -61,23 +77,8 @@ namespace Ex03.GarageLogic
             {
                 return r_MaxTimeBattery;
             }
-
         }
-        protected new static List<string> getQuestions()
-        {
-            List<string> questionsToUser = Vehicle.getQuestions();
-            questionsToUser.Add("Please enter left battery time: ");
-
-            return questionsToUser;
-        }
-
-        protected new static List<string> getAtributes()
-        {
-            List<string> getAtributes = Vehicle.getAtributes();
-            getAtributes.Add("LeftTimeBattery");
-            return getAtributes;
-        }
-
+        
         public bool Charge(float i_EnergyToAdd)
         {
             bool isProccessSuccsseeded = false;

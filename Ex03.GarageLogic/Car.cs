@@ -24,6 +24,22 @@ namespace Ex03.GarageLogic
         private eCarColor m_Color;
         private eNumbersOfDoors m_NumOfDoors;
 
+        public static List<string> GetQuestions()
+        {
+            List<string> questionsToUser = new List<string>();
+            questionsToUser.Add("Please enter color of the vehicle: enter 0 digit for Red, enter 1 digit for White, enter 2 digit for Black, enter 3 digit for Silver");
+            questionsToUser.Add("Please enter how many doors in the vehicle(enter 2-5):Two, Three, Four, Five");
+            return questionsToUser;
+        }
+
+        public static List<string> GetAtributes()
+        {
+            List<string> getAtributes = new List<string>();
+            getAtributes.Add("Color");
+            getAtributes.Add("NumOfDoors");
+            return getAtributes;
+        }
+
         public eCarColor Color
         {
             get
@@ -76,25 +92,6 @@ namespace Ex03.GarageLogic
                 }
                 NumOfDoors = (eNumbersOfDoors)numOfDoors;
             }
-
-
-        }
-        public static List<string> GetQuestions()
-        {
-            List<string> questionsToUser = new List<string>();
-            questionsToUser.Add("Please enter color of the vehicle: enter 0 digit for Red, enter 1 digit for White, enter 2 digit for Black, enter 3 digit for Silver");
-            questionsToUser.Add("Please enter how many doors in the vehicle(enter 2-5):Two, Three, Four, Five");
-            return questionsToUser;
-        }
-
-        public static List<string> GetAtributes()
-        {
-            List<string> getAtributes = new List<string>();
-            getAtributes.Add("Color");
-            getAtributes.Add("NumOfDoors");
-            return getAtributes;
-        }
-
-
+        }       
     }
 }

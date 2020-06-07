@@ -8,7 +8,7 @@ namespace Ex03.GarageLogic
     {
         private float m_MaxValue;
         private float m_MinValue;
-
+        
        public ValueOutOfRangeException(float i_MinValue,float i_MaxValue):base("The value that are allowed to enter is between "+ i_MinValue+" to "+ i_MaxValue+"! Please try again!")
         {
             m_MinValue = i_MinValue;

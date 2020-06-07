@@ -25,6 +25,7 @@ namespace Ex03.GarageLogic
             detaliesFuelCar.AppendLine(" Is carry dangerous material: " + m_isCarryDangerousMaterial.ToString());
             return detaliesFuelCar;
         }
+
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             if(i_WhichAttributeToSet == "CarryVolume")
@@ -36,13 +37,14 @@ namespace Ex03.GarageLogic
             {
                 IsCarryDangerousMaterial = bool.Parse(i_InputFromUser);
             }
+
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
 
-        public new static List<string> getQuestions()
+        public new static List<string> GetQuestions()
         {
-            List<string> questionsToUserFuelVehicle = FuelVehicle.getQuestions();
+            List<string> questionsToUserFuelVehicle = FuelVehicle.GetQuestions();
             List<string> questionsToUserCar = Car.GetQuestions();
             foreach (string str in questionsToUserCar)
             {
@@ -53,9 +55,9 @@ namespace Ex03.GarageLogic
             return questionsToUserFuelVehicle;
         }
 
-        public new static List<string> getAtributes()
+        public new static List<string> GetAtributes()
         {
-            List<string> atributesFuelVehicle = FuelVehicle.getAtributes();
+            List<string> atributesFuelVehicle = FuelVehicle.GetAtributes();
             List<string> atributesToUserCar = Car.GetAtributes();
             foreach (string str in atributesToUserCar)
             {
@@ -65,12 +67,14 @@ namespace Ex03.GarageLogic
             atributesFuelVehicle.Add("CarryVolume");
             return atributesFuelVehicle;
         }
+
         public float CarryVolume
         {
             get
             {
                 return m_CarryVolume;            
             }
+
             set
             {
                 m_CarryVolume = value;
@@ -83,6 +87,7 @@ namespace Ex03.GarageLogic
             {
                 return m_Car;
             }
+
             set
             {
                 m_Car = value;
@@ -95,6 +100,7 @@ namespace Ex03.GarageLogic
             {
                 return m_isCarryDangerousMaterial;
             }
+
             set
             {
                 m_isCarryDangerousMaterial = value;

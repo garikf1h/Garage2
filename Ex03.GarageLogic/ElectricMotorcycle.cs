@@ -13,12 +13,35 @@ namespace Ex03.GarageLogic
             m_Motorcycle = new Motorcycle();
         }
 
+        public new static List<string> GetQuestions()
+        {
+            List<string> questionsToUserElectricVehicle = ElectricVehicle.GetQuestions();
+            List<string> questionsToUserMotorcycle = Motorcycle.getQuestions();
+            foreach (string str in questionsToUserMotorcycle)
+            {
+                questionsToUserElectricVehicle.Add(str);
+            }
+
+            return questionsToUserElectricVehicle;
+        }
+
+        public new static List<string> GetAtributes()
+        {
+            List<string> getAtributesFuelVehicle = ElectricVehicle.GetAtributes();
+            List<string> getAtributesUserCar = Motorcycle.getAtributes();
+            foreach (string str in getAtributesUserCar)
+            {
+                getAtributesFuelVehicle.Add(str);
+            }
+
+            return getAtributesFuelVehicle;
+        }
+
         public override StringBuilder GetAllDetalies()
         {
             StringBuilder detaliesCar = m_Motorcycle.GetAllDetalies();
             StringBuilder detaliesElectricMotorcycle = base.GetAllDetalies();
             detaliesElectricMotorcycle.AppendLine(detaliesCar.ToString());
-
             return detaliesElectricMotorcycle;
         }
 
@@ -27,39 +50,18 @@ namespace Ex03.GarageLogic
             m_Motorcycle.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
         }
+
         public Motorcycle Electric
         {
             get
             {
                 return m_Motorcycle;
             }
+
             set
             {
                 m_Motorcycle = value;
             }
-        }
-
-        public new static List<string> getQuestions()
-        {
-            List<string> questionsToUserElectricVehicle = ElectricVehicle.getQuestions();
-            List<string> questionsToUserMotorcycle = Motorcycle.getQuestions();
-            foreach (string str in questionsToUserMotorcycle)
-            {
-                questionsToUserElectricVehicle.Add(str);
-            }
-            return questionsToUserElectricVehicle;
-        }
-
-        public new static List<string> getAtributes()
-        {
-            List<string> getAtributesFuelVehicle = ElectricVehicle.getAtributes();
-            List<string> getAtributesUserCar = Motorcycle.getAtributes();
-            foreach (string str in getAtributesUserCar)
-            {
-                getAtributesFuelVehicle.Add(str);
-            }
-            return getAtributesFuelVehicle;
-        }
-
+        }       
     }
 }

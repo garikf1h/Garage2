@@ -18,7 +18,22 @@ namespace Ex03.GarageLogic
             makeWheelListForCar(i_NumOfWheels, i_MaxPressureForWheel);
         }
 
-       
+        protected static List<string> GetAtributes()
+        {
+            List<string> atributes = new List<string>();
+            atributes.Add("ManufactureName");
+            atributes.Add("CurrPressureLevel");
+            return atributes;
+        }
+
+        protected static List<string> GetQuestions()
+        {
+            List<string> questionsToUser = new List<string>();
+            questionsToUser.Add("Please enter manufacture name for the wheels");
+            questionsToUser.Add("Please enter current pressure level for the wheels");
+            return questionsToUser;
+        }
+
         public virtual void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
         {
             if (i_WhichAttributeToSet == "ManufactureName")
@@ -39,10 +54,12 @@ namespace Ex03.GarageLogic
                 {
                     throw new ValueOutOfRangeException(0, m_ListOfWheels[0].MaxPressureLevel);
                 }
+
                 for (int i = 0; i < ListOfWheels.Count; i++)
                 {
                     currPressureLevelArr[i] = currPressureLevel;
                 }
+
                 UpdateListOfWheels(currPressureLevelArr);
             }
         }
@@ -70,29 +87,15 @@ namespace Ex03.GarageLogic
             {
                 currWheel.ManufactureName = i_ManufactureNameArr[i];
             }
-        }
-        protected static List<string> getAtributes()
-        {
-            List<string> atributes = new List<string>();
-            atributes.Add("ManufactureName");
-            atributes.Add("CurrPressureLevel");
-            return atributes;
-        }
+        }      
 
-        protected static List<string> getQuestions()
-        {
-            List<string> questionsToUser = new List<string>();
-            questionsToUser.Add("Please enter manufacture name for the wheels");
-            questionsToUser.Add("Please enter current pressure level for the wheels");
-            return questionsToUser;
-
-        }
         public float LeftPercentageOfEnergy
         {
             get
             {
                 return m_LeftPercentageOfEnergy;
             }
+
             set
             {
                 m_LeftPercentageOfEnergy = value;
@@ -108,9 +111,9 @@ namespace Ex03.GarageLogic
             set
             {
                 m_ListOfWheels = value;
-            }
-
+            }       
         }
+
         public string LicencsePlateNumber
         {
             get
@@ -118,7 +121,6 @@ namespace Ex03.GarageLogic
                 return r_LicensePlateNumber;
             }           
         }
-
         
         private void makeWheelListForCar(int i_NumOfWheels, float i_MaxPressureLevelForWheel)
         {
@@ -146,6 +148,7 @@ namespace Ex03.GarageLogic
             detalies.AppendLine("Current pressure level of wheels:" + m_ListOfWheels[0].CurrPressureLevel);
             return detalies;
         }
+
         public class Wheel
         {
             private string m_ManufactureName;
@@ -162,6 +165,7 @@ namespace Ex03.GarageLogic
                 {
                     return m_ManufactureName;
                 }
+
                 set
                 {
                     m_ManufactureName = value;
@@ -187,10 +191,12 @@ namespace Ex03.GarageLogic
                     return r_MaxPressureLevel;
                 }
             }
+
             public void PumpWheelToMax()
             {
                 m_CurrPressureLevel = r_MaxPressureLevel;
             }
+
             public void PumpWheel(float i_PressuureToAdd)    
             {        
                 if(this.m_CurrPressureLevel + i_PressuureToAdd <= r_MaxPressureLevel)
