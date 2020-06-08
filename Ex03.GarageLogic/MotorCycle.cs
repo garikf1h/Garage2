@@ -20,7 +20,7 @@ namespace Ex03.GarageLogic
         internal static List<string> GetQuestions()
         {
             List<string> questionsToUser = new List<string>();
-            questionsToUser.Add("Please enter license type for the motorcycle:press 0 for A,press 1 for A1,press 2 for A4 Or press 3 for B");
+            questionsToUser.Add("Please enter license type for the motorcycle:press 0 for A,press 1 for A1,press 2 for AA Or press 3 for B");
             questionsToUser.Add("Please enter engine volume for the motorcycle");
             return questionsToUser;
         }

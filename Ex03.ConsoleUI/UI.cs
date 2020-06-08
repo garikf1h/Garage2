@@ -399,6 +399,18 @@ namespace Ex03.ConsoleUI
                 Console.Clear();
         }
 
+        private string returnStringIfNotEmpty()
+        {
+            string stringToReturn = Console.ReadLine();
+            while(stringToReturn.Length == 0)
+            {
+                Console.WriteLine("Please enter a valid input, this field can't be empty");
+                stringToReturn = Console.ReadLine();
+            }
+
+            return stringToReturn;
+        }
+
         private Vehicle getVehicle(string i_LicensePlateNumber)
         {
             Vehicle vehicleToAddToGarage;
