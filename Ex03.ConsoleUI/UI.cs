@@ -381,7 +381,7 @@ namespace Ex03.ConsoleUI
             Vehicle vehicleToAddGarage, vehicleExists;
             CustomerCard customerInfo;
             Console.WriteLine("Please enter the license plate number");
-            string licensePlateNumber = Console.ReadLine();
+            string licensePlateNumber = returnStringIfNotEmpty();
             if (!m_Garage.IsVehicleExistsInGarage(licensePlateNumber, out vehicleExists))
             {
                 vehicleToAddGarage = getVehicle(licensePlateNumber);
@@ -421,7 +421,7 @@ namespace Ex03.ConsoleUI
             printSupportedTypes();
             vehicleType = getValidVehicleType();
             Console.WriteLine("Please enter the model of the vehicle");
-            model = Console.ReadLine();
+            model = returnStringIfNotEmpty();
             vehicleToAddToGarage = CreateNewObjForGarage.MakeNewVehicle(vehicleType, model, i_LicensePlateNumber, out listOfQuestions, out listOfAttributesToGet);
             getAndSetInputAccordingToQuestions(vehicleToAddToGarage, listOfQuestions, listOfAttributesToGet);
             return vehicleToAddToGarage;
@@ -447,7 +447,7 @@ namespace Ex03.ConsoleUI
                 {
                     Console.WriteLine(ex.Message);
                     i--;
-                }
+                }   
             }
         }
 
@@ -497,9 +497,9 @@ namespace Ex03.ConsoleUI
         {
             string inputName, inputPhone;
             Console.WriteLine("Please enter car owner name:");
-            inputName = Console.ReadLine();
+            inputName = returnStringIfNotEmpty();
             Console.WriteLine("Please enter car owner phone number:");
-            inputPhone = Console.ReadLine();
+            inputPhone = returnStringIfNotEmpty();
            return new CustomerCard(inputName, inputPhone);
         }
 
