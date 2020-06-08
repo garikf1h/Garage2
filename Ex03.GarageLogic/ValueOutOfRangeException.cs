@@ -15,6 +15,11 @@ namespace Ex03.GarageLogic
             m_MaxValue = i_MaxValue;
         }
 
+        public ValueOutOfRangeException(float i_MinValue) : base("The value that is allowed to enter has to be greater than " + i_MinValue + "! Please try again!")
+        {
+            m_MinValue = i_MinValue;
+        }
+
         public float MaxValue
         {
             get

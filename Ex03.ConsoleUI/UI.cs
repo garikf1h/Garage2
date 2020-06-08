@@ -14,7 +14,6 @@ namespace Ex03.ConsoleUI
         public UI()
         {
             m_Garage = new Garage();
-            RunUI();
         }
 
         private enum eExitOrCont
@@ -387,16 +386,17 @@ namespace Ex03.ConsoleUI
                 vehicleToAddGarage = getVehicle(licensePlateNumber);
                 customerInfo = getCustomerInfo();
                 m_Garage.AddVehicleToGarage(vehicleToAddGarage, customerInfo);
+                Console.Clear();
                 Console.WriteLine(string.Format("The vehicle with license plate number of {0} was added to the garage!", vehicleToAddGarage.LicencsePlateNumber));
-            }        
+                Thread.Sleep(k_DelayTime);
+            }
             else
             {
                 m_Garage.ChangeStatusOfCar(vehicleExists, eRepairStatus.InRepair);
-                Console.WriteLine(string.Format("The vehicle with license plate number of {0} is already exists in the garage system, status was changed to inRepair", vehicleExists.LicencsePlateNumber));
-            }
-
-                Thread.Sleep(k_DelayTime);
                 Console.Clear();
+                Console.WriteLine(string.Format("The vehicle with license plate number of {0} is already exists in the garage system, status was changed to inRepair", vehicleExists.LicencsePlateNumber));
+                Thread.Sleep(k_DelayTime);
+            }
         }
 
         private string returnStringIfNotEmpty()

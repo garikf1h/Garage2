@@ -27,12 +27,12 @@ namespace Ex03.GarageLogic
             return i_VehicleToAdd.CheckAddEnergyIsValid(i_EnergyToAdd, out o_MaxAmountToAdd);
         }
 
-        public void ChangeStatusOfCar(Vehicle i_VehicleToChangeStatus, eRepairStatus m_NewRepairStatus)
+        public void ChangeStatusOfCar(Vehicle i_VehicleToChangeStatus, eRepairStatus i_NewRepairStatus)
         {
             CustomerCard customerToGet;
             if (m_ContactInfoDictionary.TryGetValue(i_VehicleToChangeStatus.LicencsePlateNumber, out customerToGet))
             {
-                customerToGet.CarRepairStatus = m_NewRepairStatus;
+                customerToGet.CarRepairStatus = i_NewRepairStatus;
             }
         }
 
@@ -63,10 +63,10 @@ namespace Ex03.GarageLogic
 
             foreach(KeyValuePair<string, CustomerCard> keyValuePair in m_ContactInfoDictionary)
             {
-                o_IsEmptyList = false;
                 if (keyValuePair.Value.CarRepairStatus == i_RepairStatus || withoutStatus)
                 {
-                    outputString.Append("Car No " + index.ToString() + ":");
+                    o_IsEmptyList = false;
+                    outputString.Append("Car No: " + index.ToString());
                     outputString.Append(", License plate number:" + keyValuePair.Key.ToString());
                     outputString.AppendLine(", Status:" + keyValuePair.Value.CarRepairStatus.ToString());
                     index++;
@@ -128,7 +128,7 @@ namespace Ex03.GarageLogic
                 outputAllVehicles.AppendLine("===============================");
                 outputAllVehicles.AppendLine(keyValuePair.Value.GetAllDetalies());
                 m_ContactInfoDictionary.TryGetValue(keyValuePair.Key, out customerInfo);
-                outputAllVehicles.AppendLine(customerInfo.getDetalies().ToString());
+                outputAllVehicles.AppendLine(customerInfo.GetDetalies().ToString());
                 i++;
             }
 

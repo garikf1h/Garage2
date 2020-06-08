@@ -15,16 +15,16 @@ namespace Ex03.GarageLogic
             Truck
         }
 
-        private static readonly eVehicle[] rs_SupportedTypes = { eVehicle.FuelCar, eVehicle.FuelMotorcycle, eVehicle.ElectricCar, eVehicle.ElectricMotorcycle, eVehicle.Truck };
+        private static readonly eVehicle[] sr_SupportedTypes = { eVehicle.FuelCar, eVehicle.FuelMotorcycle, eVehicle.ElectricCar, eVehicle.ElectricMotorcycle, eVehicle.Truck };
 
         public static eVehicle[] GetSupportedTypes()
         {
-            return rs_SupportedTypes;
+            return sr_SupportedTypes;
         }
 
-        public static Vehicle MakeNewVehicle(eVehicle TypeToCreate, string i_ModelName, string i_LicensePlateNumber, out List<string> o_QuestionsToAsk, out List<string> o_Attributes)
+        public static Vehicle MakeNewVehicle(eVehicle i_TypeToCreate, string i_ModelName, string i_LicensePlateNumber, out List<string> o_QuestionsToAsk, out List<string> o_Attributes)
         {
-            switch (TypeToCreate)
+            switch (i_TypeToCreate)
             {     
                 case eVehicle.ElectricCar:
                     {

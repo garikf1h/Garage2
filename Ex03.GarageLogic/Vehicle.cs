@@ -101,6 +101,11 @@ namespace Ex03.GarageLogic
 
             set
             {
+                if(value < 0)
+                {
+                    throw new ValueOutOfRangeException(0);
+                }
+
                 m_LeftPercentageOfEnergy = value;
             }
         }

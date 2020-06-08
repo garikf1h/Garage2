@@ -7,7 +7,7 @@ namespace Ex03.GarageLogic
    public class Truck : FuelVehicle
     {
         private Car m_Car;
-        private bool m_isCarryDangerousMaterial;
+        private bool m_IsCarryDangerousMaterial;
         private float m_CarryVolume;
 
         public Truck(string i_ModelName, string i_LicensePlateNumber, int i_NumOfWheels, float i_MaxPressureLevelForWheel, FuelVehicle.eFuel i_FuelType, float i_MaxAmountOfFuel) : base(i_ModelName, i_LicensePlateNumber, i_NumOfWheels, i_MaxPressureLevelForWheel, i_MaxAmountOfFuel, i_FuelType)
@@ -48,7 +48,7 @@ namespace Ex03.GarageLogic
             return "Vehicle type: Truck \n" + base.GetAllDetalies() + m_Car.GetAllDetalies() + string.Format(@"
 Truck carry volume is:{0}
 Is carry dangerous material:{1}",
-m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
+m_CarryVolume.ToString(), m_IsCarryDangerousMaterial.ToString());
         }
 
         public override void SetAttribute(string i_WhichAttributeToSet, string i_InputFromUser)
@@ -60,12 +60,25 @@ m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
 
             if (i_WhichAttributeToSet == "IsCarryDangerousMaterial")
             {
-                m_isCarryDangerousMaterial = bool.Parse(i_InputFromUser);
+                IsCarryDangerousMaterial = bool.Parse(i_InputFromUser);
             }
 
             m_Car.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
             base.SetAttribute(i_WhichAttributeToSet, i_InputFromUser);
-        }        
+        }
+
+        public bool IsCarryDangerousMaterial
+        {
+            get
+            {
+                return m_IsCarryDangerousMaterial;
+            }
+
+            set
+            {
+                m_IsCarryDangerousMaterial = value;
+            }
+        }
 
         public float CarryVolume
         {
@@ -76,9 +89,9 @@ m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
 
             set
             {
-                if(value < 0 || value > 4000)
+                if(value <= 0)
                 {
-                    throw new ValueOutOfRangeException(0,4000);
+                    throw new ValueOutOfRangeException(0);
                 }
 
                 m_CarryVolume = value;

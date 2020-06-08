@@ -17,7 +17,7 @@ namespace Ex03.GarageLogic
             m_CarRepairStatus = eRepairStatus.InRepair;
         }
 
-        public StringBuilder getDetalies()
+        public StringBuilder GetDetalies()
         {
             StringBuilder detailsCustomer = new StringBuilder();
             detailsCustomer.AppendLine("Car owner name: " + m_CarOwnerName);
@@ -35,6 +35,11 @@ namespace Ex03.GarageLogic
 
             set
             {
+                if ((int)value > 2 || (int)value < 0)
+                {
+                    throw new ValueOutOfRangeException(0, 2);
+                }
+
                 m_CarRepairStatus = value;
             }
         }

@@ -57,7 +57,7 @@ LicenseType.ToString(), m_EngineVolume.ToString());
 
             if (i_WhichAttributeToSet == "EngineVolume")
             {
-                m_EngineVolume = int.Parse(i_InputFromUser);
+                EngineVolume = int.Parse(i_InputFromUser);
             }
         }
 
@@ -74,6 +74,16 @@ LicenseType.ToString(), m_EngineVolume.ToString());
             get
             {
                 return m_EngineVolume;
+            }
+
+            set
+            {
+                if(value <= 0)
+                {
+                    throw new ValueOutOfRangeException(0);
+                }
+
+                m_EngineVolume = value;
             }
         }           
     }
