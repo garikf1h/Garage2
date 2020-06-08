@@ -76,6 +76,11 @@ m_CarryVolume.ToString(), m_isCarryDangerousMaterial.ToString());
 
             set
             {
+                if(value < 0 || value > 4000)
+                {
+                    throw new ValueOutOfRangeException(0,4000);
+                }
+
                 m_CarryVolume = value;
             }
         }

@@ -435,7 +435,7 @@ namespace Ex03.ConsoleUI
                 try
                 {
                     Console.WriteLine(i_ListOfQuestions[i]);
-                    input = Console.ReadLine();
+                    input = returnStringIfNotEmpty();
                     i_Vehicle.SetAttribute(i_ListOfAttributesToGet[i], input);
                 }
                 catch(FormatException)

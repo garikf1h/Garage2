@@ -39,11 +39,7 @@ namespace Ex03.GarageLogic
             if (i_WhichAttributeToSet == "ManufactureName")
             {
                 string[] ManufactureNames = new string[ListOfWheels.Count];
-                if(i_InputFromUser.Length == 0)
-                {
-                    throw new FormatException("Manufacture of wheels need to be provided");
-                }
-
+                
                 for (int i = 0; i < ListOfWheels.Count; i++)
                 {
                     ManufactureNames[i] = i_InputFromUser;
@@ -171,6 +167,11 @@ Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.To
 
                 set
                 {
+                    if (value.Length == 0)
+                    {
+                        throw new Exception("Manufacture of wheels need to be provided");
+                    }
+
                     m_ManufactureName = value;
                 }
             }
@@ -183,7 +184,7 @@ Left precentage of energy:{4}%", r_LicensePlateNumber.ToString(), r_ModelName.To
                 }
 
                 set
-                {
+                {                    
                     m_CurrPressureLevel = value;
                 }
             }
